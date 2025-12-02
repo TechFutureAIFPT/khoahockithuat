@@ -9,98 +9,106 @@
 [![Gemini AI](https://img.shields.io/badge/Gemini-1.5%20Flash-FF6F00.svg)](https://ai.google.dev/)
 [![License](https://img.shields.io/badge/License-Private-red.svg)](LICENSE)
 
-**H? th?ng AI h? tr? HR s�ng l?c CV th�ng minh v?i kh? nang ph�n t�ch da d?nh d?ng, t? d?ng tr�ch xu?t ti�u ch�, v� g?i � c�u h?i ph?ng v?n**
+**Hệ thống AI hỗ trợ HR sàng lọc CV thông minh với khả năng phân tích đa định dạng, tự động trích xuất tiêu chí, và gợi ý câu hỏi phỏng vấn**
 
-[ Features](#-t�nh-nang-n?i-b?t)  [ Installation](#-c�i-d?t)  [ Deploy](#-deployment)  [ Docs](#-t�i-li?u)  [ SEO](#-seo-optimization)
+<br>
+
+| [ Features](#-tính-năng-nổi-bật) | [ Installation](#-cài-đặt) | [ Deploy](#-deployment) | [ Docs](#-tài-liệu) | [ SEO](#-seo-optimization) |
+|:---:|:---:|:---:|:---:|:---:|
 
 </div>
 
 ---
 
-##  T�i li?u chi ti?t
+##  Tài liệu chi tiết
 
-D? �n du?c chia th�nh 3 ph?n t�i li?u ch�nh d? d? d�ng theo d�i:
+Dự án được chia thành 3 phần tài liệu chính để dễ dàng theo dõi:
 
-1.  **[README.md](./README.md)** (Trang n�y): T?ng quan v? d? �n, t�nh nang, c�i d?t v� tri?n khai.
-2.  **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)**: Chi ti?t v? c?u tr�c file, so d? h? th?ng v� lu?ng d? li?u.
-3.  **[ALGORITHMS.md](./docs/ALGORITHMS.md)**: Chi ti?t v? c�c thu?t to�n AI, c�ng th?c ch?m di?m v� k? thu?t x? l� d? li?u.
+<div align="center">
+
+|  **TỔNG QUAN** |  **KIẾN TRÚC** |  **THUẬT TOÁN** |
+|:---:|:---:|:---:|
+| [**Xem README.md**](./README.md) | [**Xem ARCHITECTURE.md**](./docs/ARCHITECTURE.md) | [**Xem ALGORITHMS.md**](./docs/ALGORITHMS.md) |
+| *Giới thiệu, Cài đặt, Deploy* | *Structure, System Flow* | *AI Core, Scoring, OCR* |
+
+</div>
 
 ---
 
-##  T�nh nang n?i b?t
+##  Tính năng nổi bật
 
 ###  **AI-Powered CV Analysis**
--   **Ph�n t�ch th�ng minh**: S? d?ng Google Gemini AI d? d�nh gi� CV theo 8+ ti�u ch�
--   **�a d?nh d?ng**: H? tr? PDF, Word, Excel v� h�nh ?nh (OCR)
--   **Ch?m di?m deterministic**: K?t qu? nh?t qu�n 100% v?i c�ng input
--   **Tr?ng s? t�y ch?nh**: �i?u ch?nh ti�u ch� d�nh gi� theo t?ng v? tr�
+-   **Phân tích thông minh**: Sử dụng Google Gemini AI để đánh giá CV theo 8+ tiêu chí
+-   **Đa định dạng**: Hỗ trợ PDF, Word, Excel và hình ảnh (OCR)
+-   **Chấm điểm deterministic**: Kết quả nhất quán 100% với cùng input
+-   **Trọng số tùy chỉnh**: Điều chỉnh tiêu chí đánh giá theo từng vị trí
 
 ###  **Advanced Comparison Tools**
--   **Side-by-side Compare**: So s�nh chi ti?t gi?a ?ng vi�n
--   **Strengths Analysis**: Ph�n t�ch di?m m?nh/y?u c?a t?ng ?ng vi�n
--   **Ranking Dashboard**: B?ng x?p h?ng tr?c quan v?i filters
--   **Export Comparison**: Xu?t b�o c�o so s�nh d?ng Excel/PDF
+-   **Side-by-side Compare**: So sánh chi tiết giữa ứng viên
+-   **Strengths Analysis**: Phân tích điểm mạnh/yếu của từng ứng viên
+-   **Ranking Dashboard**: Bảng xếp hạng trực quan với filters
+-   **Export Comparison**: Xuất báo cáo so sánh dạng Excel/PDF
 
 ###  **Cross-Device Data Sync**
--   **Firebase Integration**: �?ng b? d? li?u qua Gmail account
--   **Multi-device Access**: Truy c?p m?i l�c, m?i noi
--   **Auto-sync**: T? d?ng d?ng b? khi c� d? li?u m?i
--   **Local + Cloud Caching**: Hi?u su?t t?i uu
+-   **Firebase Integration**: Đồng bộ dữ liệu qua Gmail account
+-   **Multi-device Access**: Truy cập mọi lúc, mọi nơi
+-   **Auto-sync**: Tự động đồng bộ khi có dữ liệu mới
+-   **Local + Cloud Caching**: Hiệu suất tối ưu
 
 ###  **Salary Analysis & Market Comparison**
--   **Real-time Market Data**: So s�nh luong v?i th? tru?ng Vi?t Nam
--   **RapidAPI Integration**: D? li?u t? job-salary-data API
--   **Smart Extraction**: T? d?ng tr�ch xu?t th�ng tin luong t? CV/JD
--   **Negotiation Tips**: G?i � thuong lu?ng d?a tr�n v? th?
--   **Fallback Estimation**: U?c t�nh th�ng minh khi API kh�ng kh? d?ng
+-   **Real-time Market Data**: So sánh lương với thị trường Việt Nam
+-   **RapidAPI Integration**: Dữ liệu từ job-salary-data API
+-   **Smart Extraction**: Tự động trích xuất thông tin lương từ CV/JD
+-   **Negotiation Tips**: Gợi ý thương lượng dựa trên vị thế
+-   **Fallback Estimation**: Ước tính thông minh khi API không khả dụng
 
 ###  **Advanced Analytics**
--   **Dashboard tr?c quan**: Th?ng k� chi ti?t v?i bi?u d?
--   **L?ch s? d?y d?**: Theo d�i t?t c? l?n ph�n t�ch
--   **Export d? li?u**: Xu?t k?t qu? d?ng Excel/PDF
+-   **Dashboard trực quan**: Thống kê chi tiết với biểu đồ
+-   **Lịch sử đầy đủ**: Theo dõi tất cả lần phân tích
+-   **Export dữ liệu**: Xuất kết quả dạng Excel/PDF
 -   **Performance Metrics**: Cache hit rate, sync status
 
 ###  **Smart Auto-Fill & Auto-Tick** (NEW!)
--   ** T? �?ng Tr�ch Xu?t Ti�u Ch� t? JD**:
-    -   AI t? d?ng d?c Job Description v� di?n s?n c�c Hard Filters
-    -   **Smart Language Conversion**: T? d?ng chuy?n d?i IELTS/TOEIC  CEFR
-    -   **Vietnamese Recognition**: Hi?u ti?ng Vi?t (VD: "T?t nghi?p �?i h?c"  Bachelor)
-    -   **Location Normalization**: HN/HCM/SG  H� N?i/Th�nh ph? H? Ch� Minh
-    -   **Education Mapping**: K? su/Cao d?ng/Th?c si  Bachelor/Associate/Master
+-   ** Tự Động Trích Xuất Tiêu Chí từ JD**:
+    -   AI tự động đọc Job Description và điền sẵn các Hard Filters
+    -   **Smart Language Conversion**: Tự động chuyển đổi IELTS/TOEIC  CEFR
+    -   **Vietnamese Recognition**: Hiểu tiếng Việt (VD: "Tốt nghiệp Đại học"  Bachelor)
+    -   **Location Normalization**: HN/HCM/SG  Hà Nội/Thành phố Hồ Chí Minh
+    -   **Education Mapping**: Kỹ sư/Cao đẳng/Thạc sĩ  Bachelor/Associate/Master
 -   ** Auto-Tick Mandatory Checkboxes**:
-    -   T? d?ng t�ch "B?t bu?c" khi ph�t hi?n ti�u ch� trong JD
-    -   �p d?ng cho: �?a di?m, Ng�n ng?, H?c v?n, Seniority, Ch?ng ch?, �?nh d?ng l�m vi?c, Lo?i h?p d?ng, Ng�nh ngh?
+    -   Tự động tích "Bắt buộc" khi phát hiện tiêu chí trong JD
+    -   Áp dụng cho: Địa điểm, Ngôn ngữ, Học vấn, Seniority, Chứng chỉ, Định dạng làm việc, Loại hợp đồng, Ngành nghề
 
 ###  **SEO Optimization** (NEW!)
--   **Comprehensive Meta Tags**: Title, description, keywords t?i uu cho "support hr"
--   **Open Graph & Twitter Cards**: Share preview v?i branding d?y d?
+-   **Comprehensive Meta Tags**: Title, description, keywords tối ưu cho "support hr"
+-   **Open Graph & Twitter Cards**: Share preview với branding đầy đủ
 -   **Search Engine Ready**: robots.txt, sitemap.xml, canonical URLs
--   **Vietnamese Keywords**: "tuy?n d?ng AI", "s�ng l?c cv", "ph�n t�ch cv t? d?ng"
--   **Real-time Performance**: Web Vitals monitoring v?i Vercel Speed Insights
--   **Structured Data**: JSON-LD cho Organization v� SoftwareApplication
+-   **Vietnamese Keywords**: "tuyển dụng AI", "sàng lọc cv", "phân tích cv tự động"
+-   **Real-time Performance**: Web Vitals monitoring với Vercel Speed Insights
+-   **Structured Data**: JSON-LD cho Organization và SoftwareApplication
 
 ###  **PWA Support** (NEW!)
--   **Installable**: C�i d?t nhu ?ng d?ng native tr�n mobile/desktop
--   **Offline Mode**: Ho?t d?ng khi m?t m?ng v?i trang offline t�y ch?nh
--   **Caching Strategy**: Cache-first cho assets, Stale-while-revalidate cho n?i dung
--   **App-like Experience**: Standalone mode, splash screen, icons d?y d?
--   **Performance**: Service Worker cache gi�p t?i trang c?c nhanh
+-   **Installable**: Cài đặt như ứng dụng native trên mobile/desktop
+-   **Offline Mode**: Hoạt động khi mất mạng với trang offline tùy chỉnh
+-   **Caching Strategy**: Cache-first cho assets, Stale-while-revalidate cho nội dung
+-   **App-like Experience**: Standalone mode, splash screen, icons đầy đủ
+-   **Performance**: Service Worker cache giúp tải trang cực nhanh
 
 ---
 
-##  C�ng ngh? s? d?ng
+##  Công nghệ sử dụng
 
 ### **Frontend**
--   **React 19.1.1** - UI Framework hi?n d?i
--   **TypeScript 5.8.2** - Type safety v� developer experience
+-   **React 19.1.1** - UI Framework hiện đại
+-   **TypeScript 5.8.2** - Type safety và developer experience
 -   **Tailwind CSS 4.0** - Utility-first CSS framework
 -   **Vite 6.2.0** - Lightning fast build tool
 
 ### **Backend & AI**
--   **Google Gemini AI 1.5 Flash** - Ph�n t�ch CV v� t?o c�u h?i (4 API keys for load balancing)
+-   **Google Gemini AI 1.5 Flash** - Phân tích CV và tạo câu hỏi (4 API keys for load balancing)
 -   **Firebase 12.3.0** - Authentication (Gmail) & Firestore database
--   **Tesseract.js 5.1.1** - OCR cho h�nh ?nh
--   **PDF.js** - X? l� file PDF
+-   **Tesseract.js 5.1.1** - OCR cho hình ảnh
+-   **PDF.js** - Xử lý file PDF
 -   **Mammoth.js** - Word document parsing
 
 ### **Additional Services**
@@ -115,9 +123,9 @@ D? �n du?c chia th�nh 3 ph?n t�i li?u ch�nh d? d? d�ng theo d�i:
 
 ---
 
-##  C�i d?t
+##  Cài đặt
 
-### **Y�u c?u h? th?ng**
+### **Yêu cầu hệ thống**
 -   **Node.js**: >= 20.x < 21.x
 -   **npm**: >= 10.9.0
 -   **Modern Browser**: Chrome, Firefox, Safari, Edge
@@ -128,15 +136,15 @@ D? �n du?c chia th�nh 3 ph?n t�i li?u ch�nh d? d? d�ng theo d�i:
 git clone https://github.com/your-username/hr-support-system.git
 cd hr-support-system
 
-# C�i d?t dependencies
+# Cài đặt dependencies
 npm install
 
-# T?o file environment
+# Tạo file environment
 cp .env.example .env.local
 `
 
 ### **Environment Configuration**
-T?o file .env.local v?i c�c bi?n m�i tru?ng:
+Tạo file .env.local với các biến môi trường:
 
 `env
 # Firebase Configuration
@@ -148,12 +156,12 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
 VITE_FIREBASE_APP_ID=1:123456789:web:abcdef
 
 # Google Gemini AI (Multi-key support for load balancing)
-# System s? d?ng 4 keys v� t? d?ng rotate d? tr�nh rate limit
+# System sử dụng 4 keys và tự động rotate để tránh rate limit
 VITE_GEMINI_API_KEY_1=your_gemini_key_1
 VITE_GEMINI_API_KEY_2=your_gemini_key_2
 VITE_GEMINI_API_KEY_3=your_gemini_key_3
 VITE_GEMINI_API_KEY_4=your_gemini_key_4
-# (Optional) CLI embedding scripts uu ti�n bi?n n�y n?u du?c set
+# (Optional) CLI embedding scripts ưu tiên biến này nếu được set
 GEMINI_API_KEY=your_backend_gemini_key
 
 # RapidAPI (Salary Analysis - Optional)
@@ -164,7 +172,7 @@ VITE_APP_NAME="Support HR"
 VITE_APP_VERSION="1.0.0"
 `
 
-### **Kh?i ch?y**
+### **Khởi chạy**
 `ash
 # Development server
 npm run dev
@@ -176,19 +184,19 @@ npm run build
 npm run preview
 `
 
-?ng d?ng s? ch?y t?i: http://localhost:3000
+Ứng dụng sẽ chạy tại: http://localhost:3000
 
-### **Tang cu?ng d? li?u AI (Data Embedding)**
-C�ng c? CLI scripts/embedData.ts gi�p t?o vector embedding cho to�n b? thu m?c data/ d? ph?c v? c�c t�c v? truy v?n ng? nghia ho?c hu?n luy?n n?i b?.
+### **Tăng cường dữ liệu AI (Data Embedding)**
+Công cụ CLI scripts/embedData.ts giúp tạo vector embedding cho toàn bộ thư mục data/ để phục vụ các tác vụ truy vấn ngữ nghĩa hoặc huấn luyện nội bộ.
 
 `ash
-# T?o embedding cho to�n b? data (y�u c?u GEMINI_API_KEY ho?c VITE_GEMINI_API_KEY_x)
+# Tạo embedding cho toàn bộ data (yêu cầu GEMINI_API_KEY hoặc VITE_GEMINI_API_KEY_x)
 npm run embed:data
 
-# Ch?y theo subset (v� d? ch? l?y 10 file d?u ti�n ho?c l?c theo t�n thu m?c)
+# Chạy theo subset (ví dụ chỉ lấy 10 file đầu tiên hoặc lọc theo tên thư mục)
 npm run embed:data -- --limit 10 --filter marketing
 
-# Dry-run/simulation (kh�ng g?i API, h?u �ch khi test CI)
+# Dry-run/simulation (không gọi API, hữu ích khi test CI)
 npx tsx scripts/embedData.ts --simulate --limit 2
 `
 
@@ -208,9 +216,9 @@ npx tsx scripts/embedData.ts --simulate --limit 2
     `
 
 2.  **Deploy to Vercel:**
-    -   Truy c?p [vercel.com](https://vercel.com/)
+    -   Truy cập [vercel.com](https://vercel.com/)
     -   Import GitHub repository
-    -   Vercel t? d?ng detect Vite project
+    -   Vercel tự động detect Vite project
 
 3.  **Set Environment Variables:**
     `
@@ -235,7 +243,7 @@ npx tsx scripts/embedData.ts --simulate --limit 2
 
 ##  Contributing
 
-Ch�ng t�i hoan ngh�nh m?i d�ng g�p!
+Chúng tôi hoan nghênh mọi đóng góp!
 
 1.  Fork repository
 2.  Create feature branch: git checkout -b feature/amazing-feature
@@ -247,7 +255,7 @@ Ch�ng t�i hoan ngh�nh m?i d�ng g�p!
 
 ##  License
 
-**Private License** - Ph?n m?m d?c quy?n
+**Private License** - Phần mềm độc quyền
 
  2025 HR Support System. All rights reserved.
 
@@ -255,7 +263,11 @@ Ch�ng t�i hoan ngh�nh m?i d�ng g�p!
 
 <div align="center">
 
-** N?u project h?u �ch, d?ng qu�n star repo nh�!**
+[**Tiếp theo: Kiến Trúc Hệ Thống **](./docs/ARCHITECTURE.md)
+
+<br>
+
+** Nếu project hữu ích, đừng quên star repo nhé!**
 
 Made with  by [TechFuture-Supporhr]
 
