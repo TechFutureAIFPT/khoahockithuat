@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/images/logos/logo.jpg" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/pwa/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
@@ -19,7 +19,7 @@
     <!-- Bing & Microsoft Meta Tags -->
     <meta name="msapplication-TileColor" content="#0B1220" />
     <meta name="msapplication-TileImage" content="/images/logos/logo.jpg" />
-    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="msapplication-config" content="/pwa/browserconfig.xml" />
     <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
     
     <!-- Language & Geographic -->
@@ -213,5 +213,18 @@
     <!-- Google API Scripts -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/pwa/service-worker.js', { scope: '/' })
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
-</html>
+</html> 
