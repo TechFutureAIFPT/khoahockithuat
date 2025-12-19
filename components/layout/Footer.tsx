@@ -68,7 +68,28 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-10 pt-6 border-t border-slate-800/70 text-center text-sm text-slate-400">
-          © 2025 SupportHR. Tất cả quyền được bảo lưu.
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+            <span>© 2025 SupportHR. Tất cả quyền được bảo lưu.</span>
+            <span className="hidden md:inline">·</span>
+            <div className="flex items-center gap-4">
+              <a
+                href="/privacy-policy"
+                aria-label="Privacy Policy"
+                className="text-slate-300 hover:text-white underline-offset-2 hover:underline transition-colors text-sm"
+                target="_self"
+              >
+                Chính sách bảo mật (Privacy Policy)
+              </a>
+              <a
+                href="/terms"
+                aria-label="Terms of Service"
+                className="text-slate-300 hover:text-white underline-offset-2 hover:underline transition-colors text-sm"
+                target="_self"
+              >
+                Điều khoản (Terms)
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
