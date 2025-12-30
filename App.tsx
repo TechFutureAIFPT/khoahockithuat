@@ -24,6 +24,8 @@ const AchievementsContactPage = lazy(() => import('./components/pages/Achievemen
 const DeploymentReadyPage = lazy(() => import('./components/pages/DeploymentReadyPage'));
 const LoginPage = lazy(() => import('./components/pages/LoginPage'));
 const DetailedAnalyticsPage = lazy(() => import('./components/pages/DetailedAnalyticsPage'));
+const PrivacyPolicyPage = lazy(() => import('./components/pages/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./components/pages/TermsPage'));
 // HistoryPage removed from UI (still saving to Firestore silently)
 import { saveHistorySession } from './services/historyService';
 import { cvFilterHistoryService } from './services/analysisHistory';
@@ -568,6 +570,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ onResetRequest, className, isLo
               <Route path="/detailed-analytics" element={isLoggedIn ? <DetailedAnalyticsPage candidates={analysisResults} jobPosition={jobPosition} onReset={onResetRequest} /> : <HomePage setActiveStep={setActiveStep} isLoggedIn={isLoggedIn} onLoginRequest={onLoginRequest} completedSteps={completedSteps} />} />
               <Route path="/process" element={<ProcessPage />} />
               <Route path="/contact-ready" element={<DeploymentReadyPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
             </Routes>
           </Suspense>
         </div>
