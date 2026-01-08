@@ -7,18 +7,16 @@ const PrivacyPolicyPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState('intro');
 
   const sections = [
-    { id: 'intro', title: 'Giới thiệu', number: 1 },
-    { id: 'collection', title: 'Thu thập dữ liệu', number: 2 },
-    { id: 'usage', title: 'Sử dụng thông tin', number: 3 },
-    { id: 'protection', title: 'Bảo vệ dữ liệu', number: 4 },
-    { id: 'thirdparty', title: 'Chia sẻ bên thứ ba', number: 5 },
-    { id: 'rights', title: 'Quyền của bạn', number: 6 },
-    { id: 'contact', title: 'Liên hệ', number: 7 },
-    { id: 'updates', title: 'Cập nhật', number: 8 }
+    { id: 'roles', title: 'Vai trò xử lý dữ liệu', number: 1 },
+    { id: 'scope', title: 'Phạm vi dữ liệu', number: 2 },
+    { id: 'improvement', title: 'Cải thiện dữ liệu', number: 3 },
+    { id: 'security', title: 'Bảo mật & Lưu trữ', number: 4 },
+    { id: 'rights', title: 'Quyền chủ thể', number: 5 }
   ];
 
   useEffect(() => {
     setIsVisible(true);
+    setActiveSection('roles');
     
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -34,237 +32,338 @@ const PrivacyPolicyPage: React.FC = () => {
 
   const renderSectionContent = () => {
     switch(activeSection) {
-      case 'intro':
+      case 'roles':
         return (
           <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/5 border border-transparent hover:border-slate-700/30">
             <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">Giới thiệu về SupportHR</span>
+              <span className="bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">1. Vai trò xử lý dữ liệu</span>
             </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed text-slate-200 text-lg mb-4">
-                <strong className="text-cyan-400">SupportHR</strong> ("chúng tôi", "của chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. 
-                Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và 
-                bảo vệ thông tin của bạn khi bạn sử dụng nền tảng AI hỗ trợ tuyển dụng của chúng tôi.
+            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 border border-cyan-500/20 mb-6">
+              <p className="text-slate-300 leading-relaxed mb-4">
+                Để đảm bảo tính minh bạch theo <strong className="text-cyan-400">Nghị định 13/2023/NĐ-CP</strong>:
               </p>
-              <p className="leading-relaxed text-slate-200 text-lg">
-                Chúng tôi hiểu rằng thông tin cá nhân và dữ liệu tuyển dụng là những tài sản quý giá 
-                cần được bảo vệ một cách tối đa và sử dụng một cách thông minh.
-              </p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">👤</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-lg mb-2">Bên Kiểm soát Dữ liệu (Data Controller)</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Là <strong className="text-emerald-400">Khách hàng</strong>. Khách hàng quyết định mục đích và phương tiện xử lý dữ liệu cá nhân của ứng viên.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-blue-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">⚙️</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-lg mb-2">Bên Xử lý Dữ liệu (Data Processor)</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Là <strong className="text-blue-400">Support HR</strong>. Chúng tôi thực hiện các hoạt động xử lý (thu thập, lưu trữ, phân tích) thay mặt cho Khách hàng và theo chỉ thị của Khách hàng.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         );
-      case 'collection':
+
+      case 'scope':
         return (
           <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 border border-transparent hover:border-slate-700/30">
             <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">Thu thập dữ liệu</span>
+              <span className="bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">2. Phạm vi dữ liệu thu thập</span>
             </h2>
+            <p className="text-slate-300 leading-relaxed mb-6">
+              Hệ thống thu thập và xử lý các loại dữ liệu sau để vận hành tính năng cốt lõi (Sàng lọc & Chấm điểm):
+            </p>
+            
             <div className="space-y-4">
-              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-4">
-
-                  <h3 className="font-semibold text-white text-lg">Thông tin cá nhân</h3>
+              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">🏢</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-lg mb-3">Thông tin Tài khoản Doanh nghiệp</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Tên doanh nghiệp</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Email liên hệ</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Logo công ty</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Mã số thuế</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span><span>Địa chỉ email khi đăng ký tài khoản</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span><span>Tên hiển thị (nếu bạn cung cấp)</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></span><span>Thông tin đăng nhập qua Google</span></li>
-                </ul>
               </div>
-              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-4">
 
-                  <h3 className="font-semibold text-white text-lg">Dữ liệu sử dụng</h3>
+              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">📄</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-lg mb-3">Dữ liệu Ứng viên (Candidate Data)</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Họ tên, thông tin liên hệ</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Lịch sử làm việc</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Học vấn</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Kỹ năng và các thông tin khác có trong tệp CV (PDF/Word/Image)</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span><span>Mô tả công việc (JD) bạn nhập vào hệ thống</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span><span>CV ứng viên bạn tải lên để phân tích</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span><span>Lịch sử phân tích và kết quả sàng lọc</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></span><span>Cấu hình tiêu chí đánh giá của bạn</span></li>
-                </ul>
               </div>
-              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-4">
 
-                  <h3 className="font-semibold text-white text-lg">Dữ liệu kỹ thuật</h3>
+              <div className="group bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">💼</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-lg mb-3">Dữ liệu Tuyển dụng</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Nội dung Mô tả công việc (JD)</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Tiêu chí đánh giá</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="text-slate-300">Trọng số ưu tiên</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span><span>Địa chỉ IP và thông tin trình duyệt</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span><span>Loại thiết bị và hệ điều hành</span></li>
-                  <li className="flex items-start gap-3"><span className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span><span>Thời gian truy cập và tương tác với nền tảng</span></li>
-                </ul>
               </div>
             </div>
           </section>
         );
-      case 'usage':
+
+      case 'improvement':
         return (
           <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 border border-transparent hover:border-slate-700/30">
             <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Sử dụng thông tin</span>
+              <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">3. Quyền sử dụng dữ liệu để cải thiện</span>
             </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-4 text-slate-200">Chúng tôi sử dụng thông tin của bạn để:</p>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Cung cấp và vận hành các dịch vụ phân tích CV và tuyển dụng</span>
+            <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl p-6 border border-blue-500/20 mb-6">
+              <p className="text-slate-300 leading-relaxed">
+                Khách hàng đồng ý cấp quyền cho Support HR thực hiện các hoạt động sau đối với Dữ liệu Khách hàng:
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">🔒</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white text-lg mb-2">Ẩn danh hóa (De-identification)</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Loại bỏ hoàn toàn các thông tin định danh cá nhân (PII) như Tên, Email, SĐT, Địa chỉ khỏi dữ liệu gốc.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Cải thiện thuật toán và độ chính xác của phân tích</span>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-green-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">🤖</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white text-lg mb-2">Huấn luyện Mô hình</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Sử dụng dữ liệu đã được ẩn danh và tổng hợp (Aggregated Data) để huấn luyện lại (Re-train), tinh chỉnh (Fine-tune) thuật toán chấm điểm và cải thiện độ chính xác của AI.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Gửi thông báo và cập nhật về dịch vụ</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Hỗ trợ khách hàng và giải quyết vấn đề kỹ thuật</span>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xl">📊</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white text-lg mb-2">Thống kê</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Tạo các báo cáo thị trường lao động (ví dụ: Xu hướng kỹ năng, Mức lương trung bình) phục vụ cộng đồng.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
         );
-      case 'protection':
+
+      case 'security':
         return (
           <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/5 border border-transparent hover:border-slate-700/30">
             <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">Bảo vệ dữ liệu</span>
+              <span className="bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">4. Bảo mật & Lưu trữ</span>
             </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-4 text-slate-200">Chúng tôi áp dụng các biện pháp bảo mật tiên tiến:</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Mã hóa dữ liệu</h3>
-                  <p className="text-slate-400 text-sm">Tất cả dữ liệu được mã hóa trong quá trình truyền tải và lưu trữ</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Kiểm soát truy cập</h3>
-                  <p className="text-slate-400 text-sm">Chỉ nhân viên được ủy quyền mới có thể truy cập dữ liệu cần thiết</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Sao lưu định kỳ</h3>
-                  <p className="text-slate-400 text-sm">Dữ liệu được sao lưu thường xuyên để đảm bảo tính khả dụng</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Giám sát bảo mật</h3>
-                  <p className="text-slate-400 text-sm">Hệ thống giám sát 24/7 để phát hiện và ngăn chặn truy cập trái phép</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      case 'thirdparty':
-        return (
-          <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/5 border border-transparent hover:border-slate-700/30">
-            <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">Chia sẻ bên thứ ba</span>
-            </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-4 text-slate-200">Chúng tôi không bán, cho thuê hoặc chia sẻ thông tin cá nhân với bên thứ ba, ngoại trừ:</p>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Khi có yêu cầu từ cơ quan pháp luật có thẩm quyền</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Với các nhà cung cấp dịch vụ kỹ thuật (hosting, email) dưới hợp đồng bảo mật</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Khi có sự đồng ý rõ ràng từ phía bạn</span>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      case 'rights':
-        return (
-          <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/5 border border-transparent hover:border-slate-700/30">
-            <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">Quyền của bạn</span>
-            </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-4 text-slate-200">Bạn có các quyền sau đối với dữ liệu cá nhân của mình:</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Quyền truy cập</h3>
-                  <p className="text-slate-400 text-sm">Yêu cầu xem thông tin cá nhân được lưu trữ</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Quyền chỉnh sửa</h3>
-                  <p className="text-slate-400 text-sm">Cập nhật hoặc sửa đổi thông tin không chính xác</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Quyền xóa</h3>
-                  <p className="text-slate-400 text-sm">Yêu cầu xóa toàn bộ dữ liệu cá nhân</p>
-                </div>
-                <div className="bg-slate-800/30 rounded-lg p-4">
-                  <h3 className="font-medium text-white mb-2">Quyền rút lại đồng ý</h3>
-                  <p className="text-slate-400 text-sm">Hủy đồng ý xử lý dữ liệu bất kỳ lúc nào</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      case 'contact':
-        return (
-          <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/5 border border-transparent hover:border-slate-700/30">
-            <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">Thông tin liên hệ</span>
-            </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-6 text-slate-200">
-                Nếu bạn có câu hỏi về chính sách bảo mật này hoặc muốn thực hiện các quyền của mình, 
-                vui lòng liên hệ với chúng tôi:
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg">
-                  <div>
-                    <p className="font-medium text-white">Email</p>
-                    <p className="text-slate-400">privacy@supporthr.com</p>
+            
+            {/* 4.1 */}
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-3">
+                <span className="w-10 h-10 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center text-lg">🛡️</span>
+                4.1. Biện pháp an ninh
+              </h3>
+              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20">
+                <p className="text-slate-300 leading-relaxed mb-4">
+                  Chúng tôi áp dụng các biện pháp bảo vệ kỹ thuật bao gồm:
+                </p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-green-400">🔐</span>
+                      <h4 className="font-medium text-white">Mã hóa đường truyền</h4>
+                    </div>
+                    <p className="text-slate-400 text-sm">TLS 1.2+ để bảo vệ dữ liệu khi truyền tải</p>
                   </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg">
-                  <div>
-                    <p className="font-medium text-white">Hỗ trợ khách hàng</p>
-                    <p className="text-slate-400">support@supporthr.com</p>
+                  <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-green-400">💾</span>
+                      <h4 className="font-medium text-white">Mã hóa tại chỗ</h4>
+                    </div>
+                    <p className="text-slate-400 text-sm">AES-256 để bảo vệ dữ liệu lưu trữ</p>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-green-400">🔑</span>
+                      <h4 className="font-medium text-white">Quản lý khóa API</h4>
+                    </div>
+                    <p className="text-slate-400 text-sm">Server-side API Key Management</p>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-green-400">🚫</span>
+                      <h4 className="font-medium text-white">Ngăn chặn rò rỉ</h4>
+                    </div>
+                    <p className="text-slate-400 text-sm">Bảo vệ khỏi truy cập trái phép</p>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-        );
-      case 'updates':
-        return (
-          <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/5 border border-transparent hover:border-slate-700/30">
-            <h2 className="text-2xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">Cập nhật chính sách</span>
-            </h2>
-            <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/20 rounded-xl p-6 border border-slate-700/30">
-              <p className="leading-relaxed mb-4 text-slate-200">
-                Chúng tôi có thể cập nhật chính sách bảo mật này theo thời gian để phản ánh 
-                các thay đổi trong dịch vụ hoặc yêu cầu pháp lý.
-              </p>
-              <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
-                <div>
-                  <h4 className="font-semibold text-yellow-200 mb-2">Thông báo thay đổi</h4>
-                  <p className="text-yellow-100 text-sm">
-                    Khi có thay đổi quan trọng, chúng tôi sẽ thông báo qua email và 
-                    hiển thị thông báo trên nền tảng. Việc tiếp tục sử dụng dịch vụ 
-                    sau khi có thay đổi có nghĩa là bạn chấp nhận chính sách mới.
+
+            {/* 4.2 */}
+            <div>
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-3">
+                <span className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">⏱️</span>
+                4.2. Thời gian lưu trữ
+              </h3>
+              <div className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-xl p-6 border border-blue-500/20">
+                <p className="text-slate-300 leading-relaxed mb-4">
+                  Dữ liệu sẽ được lưu trữ trong suốt thời gian Khách hàng sử dụng Dịch vụ.
+                </p>
+                <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+                  <p className="text-blue-200 leading-relaxed">
+                    Khi Khách hàng chấm dứt hợp đồng hoặc gửi yêu cầu xóa tài khoản, Support HR sẽ tiến hành 
+                    <strong className="text-blue-400"> xóa vĩnh viễn toàn bộ Dữ liệu Khách hàng</strong> khỏi hệ thống sản xuất 
+                    trong vòng <strong className="text-blue-400">30 ngày</strong>, trừ khi pháp luật yêu cầu lưu trữ lâu hơn.
                   </p>
                 </div>
               </div>
             </div>
           </section>
         );
+
+      case 'rights':
+        return (
+          <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/5 border border-transparent hover:border-slate-700/30">
+            <h2 className="text-2xl font-bold text-white mb-6">
+              <span className="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">5. Quyền của chủ thể dữ liệu</span>
+            </h2>
+            <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl p-6 border border-pink-500/20 mb-6">
+              <p className="text-slate-300 leading-relaxed">
+                Support HR cam kết hỗ trợ Khách hàng thực hiện nghĩa vụ đối với chủ thể dữ liệu (ứng viên) theo quy định pháp luật:
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">📥</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white text-lg mb-2">Trích xuất dữ liệu</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Hỗ trợ trích xuất dữ liệu khi có yêu cầu từ ứng viên hoặc cơ quan có thẩm quyền.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/30 rounded-2xl p-6 border border-slate-700/50 hover:border-red-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">🗑️</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white text-lg mb-2">Quyền được lãng quên</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Hỗ trợ xóa bỏ hoàn toàn thông tin của một ứng viên cụ thể ra khỏi hệ thống khi ứng viên thực hiện "Quyền được lãng quên".
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl p-5 border border-indigo-500/30 mt-6">
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl mt-1">⚖️</span>
+                  <div>
+                    <h4 className="font-semibold text-indigo-200 mb-2">Tuân thủ pháp luật</h4>
+                    <p className="text-indigo-100 text-sm leading-relaxed">
+                      Tất cả các quyền này được thực hiện theo quy định của <strong>Nghị định 13/2023/NĐ-CP</strong> về 
+                      Bảo vệ dữ liệu cá nhân và các văn bản pháp luật có liên quan.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+
       default:
         return (
           <section className="group hover:bg-slate-800/20 rounded-2xl p-6 transition-all duration-300">
-            <p className="text-slate-400">Nội dung sẽ được cập nhật...</p>
+            <p className="text-slate-400">Vui lòng chọn một mục để xem nội dung chi tiết.</p>
           </section>
         );
     }
@@ -301,11 +400,14 @@ const PrivacyPolicyPage: React.FC = () => {
         <div className={`bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl shadow-slate-950/50 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Title */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white via-cyan-200 to-emerald-200 bg-clip-text text-transparent mb-4 tracking-tight">
-              Chính sách bảo mật
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white via-cyan-200 to-emerald-200 bg-clip-text text-transparent mb-2 tracking-tight">
+              Chính sách bảo mật & Xử lý dữ liệu
             </h1>
-            <p className="text-slate-400 text-sm">
-              (Privacy Policy)
+            <p className="text-slate-400 text-sm mb-1">
+              (Privacy Policy & Data Processing)
+            </p>
+            <p className="text-slate-500 text-xs">
+              Tuân thủ Nghị định 13/2023/NĐ-CP và Tiêu chuẩn Bảo mật Quốc tế
             </p>
           </div>
 
