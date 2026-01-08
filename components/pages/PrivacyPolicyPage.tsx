@@ -5,17 +5,16 @@ const PrivacyPolicyPage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('intro');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const sections = [
-    { id: 'intro', title: 'Giới thiệu' },
-    { id: 'collection', title: 'Thu thập dữ liệu' },
-    { id: 'usage', title: 'Sử dụng thông tin' },
-    { id: 'protection', title: 'Bảo vệ dữ liệu' },
-    { id: 'thirdparty', title: 'Chia sẻ bên thứ ba' },
-    { id: 'rights', title: 'Quyền của bạn' },
-    { id: 'contact', title: 'Liên hệ' },
-    { id: 'updates', title: 'Cập nhật' }
+    { id: 'intro', title: 'Giới thiệu', number: 1 },
+    { id: 'collection', title: 'Thu thập dữ liệu', number: 2 },
+    { id: 'usage', title: 'Sử dụng thông tin', number: 3 },
+    { id: 'protection', title: 'Bảo vệ dữ liệu', number: 4 },
+    { id: 'thirdparty', title: 'Chia sẻ bên thứ ba', number: 5 },
+    { id: 'rights', title: 'Quyền của bạn', number: 6 },
+    { id: 'contact', title: 'Liên hệ', number: 7 },
+    { id: 'updates', title: 'Cập nhật', number: 8 }
   ];
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const PrivacyPolicyPage: React.FC = () => {
 
   const handleSectionChange = (sectionId: string) => {
     setActiveSection(sectionId);
-    setSidebarOpen(false);
   };
 
   const renderSectionContent = () => {
@@ -298,97 +296,154 @@ const PrivacyPolicyPage: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 relative z-10">
-        <div className="flex gap-8">
-          {/* Sidebar */}
-          <div className="hidden lg:block w-80 flex-shrink-0">
-            <div className="sticky top-24">
-              <div className={`bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 rounded-2xl p-6 shadow-xl transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-                <h3 className="text-lg font-bold text-white mb-6">
-                  Mục lục
-                </h3>
-                <nav className="space-y-2">
-                  {sections.map((section) => (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 relative z-10">
+        {/* Main content container */}
+        <div className={`bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl shadow-slate-950/50 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Title */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white via-cyan-200 to-emerald-200 bg-clip-text text-transparent mb-4 tracking-tight">
+              Chính sách bảo mật
+            </h1>
+            <p className="text-slate-400 text-sm">
+              (Privacy Policy)
+            </p>
+          </div>
+
+          {/* Horizontal Navigation Stepper */}
+          <div className="mb-10">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:block">
+              <div className="relative">
+                {/* Progress Line */}
+                <div className="absolute top-6 left-0 right-0 h-0.5 bg-slate-700/50">
+                  <div 
+                    className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 transition-all duration-500"
+                    style={{ 
+                      width: `${((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100}%` 
+                    }}
+                  ></div>
+                </div>
+                
+                {/* Steps */}
+                <div className="relative flex items-center justify-between">
+                  {sections.map((section, index) => {
+                    const isActive = section.id === activeSection;
+                    const isPassed = sections.findIndex(s => s.id === activeSection) >= index;
+                    
+                    return (
+                      <div key={section.id} className="flex-1 flex flex-col items-center">
+                        <button
+                          onClick={() => handleSectionChange(section.id)}
+                          className="group flex flex-col items-center gap-2 transition-all duration-300"
+                        >
+                          {/* Circle */}
+                          <div className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                            isActive 
+                              ? 'bg-gradient-to-br from-cyan-500 to-emerald-500 text-white shadow-lg shadow-cyan-500/50 scale-110' 
+                              : isPassed
+                                ? 'bg-gradient-to-br from-cyan-500/30 to-emerald-500/30 text-cyan-300 border-2 border-cyan-400/50'
+                                : 'bg-slate-800/80 text-slate-500 border-2 border-slate-700/50 group-hover:border-slate-600 group-hover:bg-slate-700/80'
+                          }`}>
+                            {section.number}
+                          </div>
+                          
+                          {/* Label */}
+                          <span className={`text-xs sm:text-sm text-center max-w-[100px] transition-all duration-300 ${
+                            isActive 
+                              ? 'text-white font-semibold' 
+                              : isPassed 
+                                ? 'text-slate-300'
+                                : 'text-slate-500 group-hover:text-slate-400'
+                          }`}>
+                            {section.title}
+                          </span>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Tablet Navigation - Scrollable */}
+            <div className="hidden md:block lg:hidden">
+              <div className="flex items-center gap-3 overflow-x-auto pb-4 px-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-800/50">
+                {sections.map((section) => {
+                  const isActive = section.id === activeSection;
+                  
+                  return (
                     <button
                       key={section.id}
                       onClick={() => handleSectionChange(section.id)}
-                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 ${
-                        activeSection === section.id
-                          ? 'bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border border-cyan-500/30 text-white shadow-lg'
-                          : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent'
+                      className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/20' 
+                          : 'bg-slate-800/50 border-2 border-slate-700/50'
                       }`}
                     >
-                      <span className="font-medium">{section.title}</span>
-                      {activeSection === section.id && (
-                        <div className="ml-auto w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                      )}
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
+                        isActive 
+                          ? 'bg-gradient-to-br from-cyan-500 to-emerald-500 text-white' 
+                          : 'bg-slate-700 text-slate-400'
+                      }`}>
+                        {section.number}
+                      </div>
+                      <span className={`text-sm font-medium whitespace-nowrap ${
+                        isActive ? 'text-white' : 'text-slate-400'
+                      }`}>
+                        {section.title}
+                      </span>
                     </button>
-                  ))}
-                </nav>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Mobile Navigation - Compact Scrollable */}
+            <div className="md:hidden">
+              <div className="flex items-center gap-2 overflow-x-auto pb-4 px-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-800/50">
+                {sections.map((section) => {
+                  const isActive = section.id === activeSection;
+                  
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => handleSectionChange(section.id)}
+                      className={`flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/20' 
+                          : 'bg-slate-800/50 border-2 border-slate-700/50'
+                      }`}
+                    >
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${
+                        isActive 
+                          ? 'bg-gradient-to-br from-cyan-500 to-emerald-500 text-white' 
+                          : 'bg-slate-700 text-slate-400'
+                      }`}>
+                        {section.number}
+                      </div>
+                      <span className={`text-xs font-medium whitespace-nowrap ${
+                        isActive ? 'text-white' : 'text-slate-400'
+                      }`}>
+                        {section.title}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden fixed top-20 left-4 z-50 w-12 h-12 bg-slate-900/90 backdrop-blur-sm border border-slate-800/60 rounded-xl flex items-center justify-center text-slate-400 hover:text-white transition-colors"
-          >
-            {sidebarOpen ? '✕' : '☰'}
-          </button>
-
-          {/* Mobile sidebar */}
-          {sidebarOpen && (
-            <div className="lg:hidden fixed inset-0 z-40">
-              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
-              <div className="absolute top-0 left-0 h-full w-80 bg-slate-900/95 backdrop-blur-sm border-r border-slate-800/60 p-6">
-                <h3 className="text-lg font-bold text-white mb-6 mt-16">
-                  Mục lục
-                </h3>
-                <nav className="space-y-2">
-                  {sections.map((section) => (
-                    <button
-                      key={section.id}
-                      onClick={() => handleSectionChange(section.id)}
-                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 ${
-                        activeSection === section.id
-                          ? 'bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border border-cyan-500/30 text-white shadow-lg'
-                          : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent'
-                      }`}
-                    >
-                      <span className="font-medium">{section.title}</span>
-                      {activeSection === section.id && (
-                        <div className="ml-auto w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                      )}
-                    </button>
-                  ))}
-                </nav>
-              </div>
-            </div>
-          )}
-
-          {/* Main content */}
-          <div className="flex-1 min-w-0">
-            <div className={`bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 rounded-3xl p-8 sm:p-12 shadow-2xl shadow-slate-950/50 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              {/* Title */}
-              <div className="text-center mb-12">
-                <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-white via-cyan-200 to-emerald-200 bg-clip-text text-transparent mb-4 tracking-tight">
-                  Chính sách bảo mật
-                </h1>
-              </div>
-
-              {/* Dynamic Content */}
-              <div className="text-slate-300">
-                {renderSectionContent()}
-              </div>
-            </div>
+          {/* Dynamic Content */}
+          <div className="text-slate-300">
+            {renderSectionContent()}
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="border-t border-slate-800/60 backdrop-blur-sm relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center">
+      <div className="border-t border-slate-800/60 backdrop-blur-sm relative z-10 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-center">
           <Link 
             to="/terms" 
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 text-slate-300 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1"
