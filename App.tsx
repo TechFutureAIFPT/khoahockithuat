@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import { detectIndustryFromJD } from './services/industryDetector';
-import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from './src/firebase';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -40,9 +40,9 @@ function usePrevious<T>(value: T): T | undefined {
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <MainApp />
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
