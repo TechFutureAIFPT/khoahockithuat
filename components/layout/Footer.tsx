@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -67,27 +68,45 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-slate-800/70 text-center text-sm text-slate-400">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-3">
-            <span>© 2025 SupportHR. Tất cả quyền được bảo lưu.</span>
-            <span className="hidden md:inline">·</span>
-            <div className="flex items-center gap-4">
-              <a
-                href="/privacy-policy"
+        <div className="mt-10 pt-8 border-t border-slate-800/70">
+          <div className="flex flex-col items-center gap-6">
+            {/* Copyright & Attribution */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm">
+              <span className="text-slate-300 font-medium">© 2026 Support HR. All rights reserved.</span>
+              <span className="hidden sm:inline text-slate-600">·</span>
+              <span className="text-slate-400">
+                Copyright belongs to{' '}
+                <a 
+                  href="https://github.com/phucwebdev" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group"
+                >
+                  <i className="fa-brands fa-github text-base group-hover:scale-110 transition-transform"></i>
+                  phucdevweb
+                </a>
+              </span>
+            </div>
+
+            {/* Policy Links */}
+            <div className="flex items-center gap-5">
+              <Link
+                to="/privacy-policy"
                 aria-label="Privacy Policy"
-                className="text-slate-300 hover:text-white underline-offset-2 hover:underline transition-colors text-sm"
-                target="_self"
+                className="text-slate-400 hover:text-cyan-300 text-sm font-medium transition-colors flex items-center gap-2 group"
               >
-                Chính sách bảo mật (Privacy Policy)
-              </a>
-              <a
-                href="/terms"
+                <i className="fa-solid fa-shield-halved text-xs group-hover:scale-110 transition-transform"></i>
+                Chính sách bảo mật
+              </Link>
+              <span className="text-slate-700">|</span>
+              <Link
+                to="/terms"
                 aria-label="Terms of Service"
-                className="text-slate-300 hover:text-white underline-offset-2 hover:underline transition-colors text-sm"
-                target="_self"
+                className="text-slate-400 hover:text-cyan-300 text-sm font-medium transition-colors flex items-center gap-2 group"
               >
-                Điều khoản (Terms)
-              </a>
+                <i className="fa-solid fa-file-contract text-xs group-hover:scale-110 transition-transform"></i>
+                Điều khoản
+              </Link>
             </div>
           </div>
         </div>
