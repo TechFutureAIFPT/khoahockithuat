@@ -79,46 +79,46 @@ const Sidebar: React.FC<SidebarProps> = ({ activeStep, setActiveStep, completedS
     const isCompleted = completedSteps.includes(step.key);
     const Icon = step.icon;
 
-    // Simplified icon color logic for better harmony
     const getIconColor = () => {
-      if (isActive) return 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]';
+      if (isActive) return 'text-cyan-400';
       if (isCompleted) return 'text-emerald-400';
       if (!isEnabled) return 'text-slate-600';
       return 'text-slate-400 group-hover:text-slate-200';
     };
 
     return (
-      <li className="w-full px-3 mb-1" key={step.key}>
+      <li className={`${isCollapsed ? 'md:px-1 px-2' : 'px-2'}`} key={step.key}>
         <button
-          className={`w-full relative flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 group
+          className={`relative w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-300 group justify-center md:justify-start
             ${isActive 
-              ? 'bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-100 shadow-inner shadow-cyan-500/5' 
-              : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'} 
-            ${!isEnabled ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer'}
-            ${isCollapsed ? 'justify-center' : ''}`}
+              ? 'bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 text-cyan-100 shadow-lg shadow-cyan-500/10 md:from-cyan-500/15 md:to-transparent' 
+              : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 md:hover:bg-slate-800/30'} 
+            ${!isEnabled ? 'opacity-40 cursor-not-allowed grayscale' : 'cursor-pointer'}
+            ${isCollapsed && 'md:justify-center'}`}
           disabled={!isEnabled}
           onClick={() => handleStepClick(step.key)}
           title={isCollapsed ? step.label : ''}
         >
-          {/* Active Indicator Line (Left) */}
+          {/* Active Left Border */}
           {isActive && (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-cyan-400 rounded-r-full shadow-[0_0_10px_rgba(34,211,238,0.6)]"></div>
+            <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-gradient-to-b from-cyan-400 to-emerald-400 rounded-r-lg shadow-lg"></div>
           )}
 
-          <div className={`flex items-center justify-center transition-all duration-300 ${getIconColor()} ${isActive ? 'scale-110' : ''}`}> 
+          <div className={`flex items-center justify-center transition-all duration-300 ${getIconColor()} ${isActive ? 'scale-110 md:scale-100' : ''} flex-shrink-0`}> 
             <Icon className="w-5 h-5" />
           </div>
           
-          <span className={`text-sm font-medium whitespace-nowrap transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] overflow-hidden ${
-            isCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100 ml-3'
-          } ${isActive && !isCollapsed ? 'translate-x-1' : ''}`}>
+          <span className={`text-sm font-medium whitespace-nowrap transition-all duration-500 overflow-hidden ${
+            isCollapsed ? 'max-w-0 opacity-0 md:max-w-0' : 'max-w-[200px] opacity-100'
+          }`}>
             {step.label}
           </span>
           
+          {/* Completed Indicator */}
           {isCompleted && !isActive && (
-            <div className={`bg-emerald-500 rounded-full shadow-[0_0_5px_rgba(16,185,129,0.6)] transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] ${
-               isCollapsed ? 'w-0 h-0 opacity-0 ml-0' : 'w-1.5 h-1.5 opacity-100 ml-auto'
-            }`} />
+            <div className={`rounded-full transition-all duration-300 ${
+               isCollapsed ? 'md:w-1.5 md:h-1.5 md:opacity-100 md:ml-0 w-0 h-0 opacity-0 ml-0' : 'w-1.5 h-1.5 opacity-100 ml-auto'
+            } ${isActive ? 'bg-cyan-400' : 'bg-emerald-500'} shadow-lg`} />
           )}
         </button>
       </li>
@@ -137,18 +137,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeStep, setActiveStep, completedS
       
       <aside 
         id="cv-sidebar" 
-        className={`flex flex-col fixed top-0 left-0 h-screen bg-[#0B1120] border-r border-slate-800/60 shadow-2xl z-50 transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] ${
+        className={`flex flex-col fixed top-0 left-0 h-screen bg-gradient-to-b from-slate-950 to-slate-900 border-r border-slate-800/60 shadow-2xl z-50 transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] ${
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        } w-64 ${isCollapsed ? 'md:w-20' : 'md:w-72'}`}
+        } ${isCollapsed ? 'md:w-20' : 'md:w-64'} w-64`}
         style={{ overflow: 'visible' }}
       >
-        {/* Logo và Brand */}
-        <div className={`flex items-center gap-3 px-4 py-6 border-b border-slate-800/60 transition-all duration-300 ${isCollapsed ? 'md:justify-center md:px-0' : ''}`}>
-          {/* Logo - Khi collapsed sẽ trở thành nút mở */}
+        {/* Compact Logo & Brand - Top */}
+        <div className={`flex items-center justify-center gap-3 px-4 py-6 border-b border-slate-800/40 transition-all duration-300`}>
+          {/* Logo Button */}
           <button
             onClick={isCollapsed ? toggleCollapse : undefined}
-            className={`flex items-center justify-center w-10 h-10 bg-slate-900 rounded-xl border border-slate-700/50 transition-all duration-300 overflow-hidden shadow-lg ${
-              isCollapsed ? 'md:cursor-pointer md:hover:border-cyan-500/50 md:hover:shadow-cyan-500/20 md:hover:scale-105' : 'cursor-default flex-shrink-0'
+            className={`flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/50 transition-all duration-300 overflow-hidden shadow-lg flex-shrink-0 ${
+              isCollapsed ? 'md:w-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-cyan-500/30 md:hover:border-cyan-400 md:hover:scale-105 md:cursor-pointer' 
+                : 'bg-slate-800/50 md:cursor-default'
             }`}
             title={isCollapsed ? 'Mở sidebar' : ''}
           >
@@ -159,26 +160,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activeStep, setActiveStep, completedS
             />
           </button>
           
-          {/* Text và nút đóng - Chỉ hiện khi expanded */}
-          <div className={`flex items-center justify-between overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] ${
-            isCollapsed ? 'w-0 opacity-0 md:w-0' : 'w-auto opacity-100 flex-1 ml-2'
-          }`}>
-            <div className="whitespace-nowrap">
-                <h1 className="text-white font-bold text-lg leading-none tracking-tight">Support HR</h1>
-                <p className="text-[10px] text-slate-500 font-medium tracking-wider uppercase mt-1">AI Recruitment</p>
+          {/* Brand Text - Only when expanded */}
+          {!isCollapsed && (
+            <div className="flex-1 min-w-0">
+              <h1 className="text-white font-bold text-sm leading-tight">Support HR</h1>
+              <p className="text-[9px] text-slate-500 font-medium tracking-wider uppercase">AI Recruitment</p>
             </div>
+          )}
+
+          {/* Collapse Toggle - Only on desktop when expanded */}
+          {!isCollapsed && (
             <button
               onClick={toggleCollapse}
-              className="hidden md:flex items-center justify-center w-6 h-6 bg-slate-800/50 border border-slate-700/50 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-600 transition-all duration-300"
-              title="Thu gọn sidebar"
+              className="hidden md:flex items-center justify-center w-8 h-8 bg-slate-800/30 border border-slate-700/50 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 hover:border-slate-600 transition-all duration-300 flex-shrink-0"
+              title="Thu gọn"
             >
-              <ChevronLeft className="w-3 h-3" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
-          </div>
+          )}
         </div>
 
-        {/* Nút Quy Trình Lọc CV Mới - Ngay dưới header */}
-        <div className={`pt-4 pb-2 ${isCollapsed ? 'md:px-2 flex md:justify-center px-4' : 'px-4'}`}>
+        {/* New Campaign Button */}
+        <div className={`transition-all duration-300 ${isCollapsed ? 'md:px-2 px-4 py-3 justify-center' : 'px-4 py-4'}`}>
           <button
             onClick={() => {
               if (completedSteps.includes('upload')) {
@@ -189,34 +192,30 @@ const Sidebar: React.FC<SidebarProps> = ({ activeStep, setActiveStep, completedS
               }
             }}
             disabled={!completedSteps.includes('upload')}
-            className={`flex items-center justify-center gap-2 font-medium transition-all duration-300 group ${
+            className={`flex items-center justify-center gap-2 font-medium transition-all duration-300 group rounded-xl ${
               completedSteps.includes('upload')
-                ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-900/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 cursor-pointer'
-                : 'bg-slate-800/30 text-slate-600 cursor-not-allowed border border-slate-800'
+                ? 'bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white shadow-lg shadow-cyan-900/20 hover:shadow-cyan-500/30 cursor-pointer'
+                : 'bg-slate-800/20 text-slate-600 cursor-not-allowed border border-slate-800'
             } ${isCollapsed 
-                ? 'md:w-10 md:h-10 md:rounded-xl md:p-0 w-full py-3 px-4 rounded-xl' 
-                : 'w-full py-3 px-4 rounded-xl'
+                ? 'md:w-10 md:h-10 md:p-0 w-full py-2.5 px-3' 
+                : 'w-full py-2.5 px-4'
             }`}
-            title={isCollapsed ? 'Quy Trình Lọc CV Mới' : ''}
+            title={isCollapsed ? 'Tạo chiến dịch mới' : ''}
           >
-            <i className={`fa-solid fa-plus text-sm ${completedSteps.includes('upload') ? 'group-hover:rotate-90 transition-transform' : ''}`}></i>
-            <span className={`text-sm whitespace-nowrap transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] overflow-hidden ${
-              isCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100'
-            }`}>
-              Tạo Chiến Dịch Mới
-            </span>
+            <i className={`fa-solid fa-plus text-sm`}></i>
+            {!isCollapsed && <span className="text-sm font-medium">Chiến Dịch Mới</span>}
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4 custom-scrollbar">
-          <ul className={`flex flex-col ${isCollapsed ? 'md:px-0 px-0' : 'px-0'}`}>
+        {/* Navigation Steps */}
+        <nav className="flex-1 overflow-y-auto custom-scrollbar">
+          <ul className={`flex flex-col gap-1 ${isCollapsed ? 'md:px-1 px-1' : 'px-2'}`}>
             {steps.map(renderStep)}
           </ul>
         </nav>
         
-        {/* User Profile Section - At Bottom (includes History) */}
-        <div className="hidden md:block">
+        {/* User Profile Section - At Bottom */}
+        <div className="hidden md:block border-t border-slate-800/40">
           <UserProfileSection 
             userEmail={userEmail}
             onLogout={onLogout}
@@ -336,14 +335,14 @@ const UserProfileSection: React.FC<{
 
   if (!userEmail) {
     return onLoginRequest ? (
-      <div className={`border-t border-slate-800 ${isCollapsed ? 'md:p-2 p-3' : 'p-3'}`}>
+      <div className={`border-t border-slate-800/40 ${isCollapsed ? 'md:p-2 p-3' : 'p-3'}`}>
         <button
           onClick={onLoginRequest}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white rounded-lg transition-all duration-200 ${isCollapsed ? 'md:justify-center' : ''}`}
+          className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg transition-all duration-200 ${isCollapsed ? 'md:justify-center' : ''}`}
           title={isCollapsed ? 'Đăng nhập' : ''}
         >
           <i className="fa-solid fa-right-to-bracket text-sm"></i>
-          <span className={`text-sm font-medium transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] overflow-hidden ${
+          <span className={`text-xs font-medium transition-all duration-500 overflow-hidden ${
             isCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100'
           }`}>Đăng nhập</span>
         </button>
@@ -352,70 +351,67 @@ const UserProfileSection: React.FC<{
   }
 
   return (
-    <div className={`border-t border-slate-800 ${isCollapsed ? 'md:p-2 p-3' : 'p-3'}`}>
+    <div className={`transition-all duration-300 ${isCollapsed ? 'md:p-2 p-3' : 'p-3'}`}>
       <div className="relative">
-        {/* Avatar with Email when expanded */}
+        {/* Avatar Button */}
         <button
           onClick={() => setShowMenu(!showMenu)}
-          className={`w-full flex items-center gap-3 py-2.5 px-2 text-slate-300 hover:bg-slate-800/50 rounded-lg transition-all duration-200 ${isCollapsed ? 'justify-center' : ''}`}
-          title={isCollapsed ? userEmail : ''}
+          className={`w-full flex items-center gap-3 py-2.5 px-2 text-slate-300 hover:bg-slate-800/50 rounded-lg transition-all duration-200 group ${isCollapsed ? 'justify-center md:justify-center' : ''}`}
+          title={isCollapsed ? userEmail || 'Menu' : ''}
         >
-          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-cyan-400/50 overflow-hidden flex-shrink-0 hover:border-cyan-400 transition-colors">
+          <div className={`rounded-lg flex items-center justify-center text-white font-bold text-xs border border-cyan-400/50 overflow-hidden flex-shrink-0 hover:border-cyan-400 transition-colors ${
+            isCollapsed ? 'w-10 h-10' : 'w-9 h-9'
+          }`}>
             {userAvatar ? (
               <img src={userAvatar} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <div className={`w-full h-full ${getAvatarColor(userEmail)} flex items-center justify-center`}>
+              <div className={`w-full h-full ${getAvatarColor(userEmail)} flex items-center justify-center text-xs`}>
                 {getInitials(userName || userEmail)}
               </div>
             )}
           </div>
-          <div className={`flex-1 min-w-0 text-left transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)] overflow-hidden ${
+          <div className={`flex-1 min-w-0 text-left transition-all duration-500 overflow-hidden ${
             isCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100 ml-3'
           }`}>
-            <p className="text-sm font-medium text-white truncate">{userName || userEmail.split('@')[0]}</p>
+            <p className="text-xs font-medium text-white truncate">{userName || userEmail.split('@')[0]}</p>
+            <p className="text-[10px] text-slate-500 truncate">{userEmail}</p>
           </div>
         </button>
 
-        {/* Dropdown Menu - Improved Bubble UI */}
+        {/* Dropdown Menu */}
         {showMenu && (
           <>
             <div 
               className="fixed inset-0 z-40" 
               onClick={() => setShowMenu(false)}
             />
-            <div className={`absolute z-50 bg-[#0f172a] border border-slate-700/50 rounded-2xl shadow-2xl shadow-black/50 ring-1 ring-white/10 overflow-hidden transition-all duration-200 
+            <div className={`absolute z-50 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-xl shadow-2xl shadow-black/50 ring-1 ring-white/10 overflow-hidden transition-all duration-200 
               ${isCollapsed 
-                ? 'left-full bottom-0 ml-3 w-72 origin-bottom-left' 
-                : 'bottom-full left-0 right-0 mx-2 mb-3 origin-bottom'
+                ? 'left-full bottom-0 ml-3 w-56 origin-bottom-left' 
+                : 'bottom-full left-0 right-0 mx-2 mb-3 w-56 origin-bottom'
               }`}>
               
-              {/* User Info Header */}
-              <div className="relative px-3 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-700/50">
-                <div className="absolute top-0 right-0 p-2 opacity-10">
-                  <i className="fa-solid fa-user-gear text-3xl text-white"></i>
-                </div>
-                <div className="flex items-center gap-3 relative z-10">
-                  <div className="relative group/avatar">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold border-2 border-slate-600 overflow-hidden flex-shrink-0 shadow-lg bg-slate-800">
-                      {userAvatar ? (
-                        <img src={userAvatar} alt="Avatar" className="w-full h-full object-cover" />
-                      ) : (
-                        <div className={`w-full h-full ${getAvatarColor(userEmail)} flex items-center justify-center text-sm`}>
-                          {getInitials(userName || userEmail)}
-                        </div>
-                      )}
-                    </div>
+              {/* Header */}
+              <div className="px-3 py-3 bg-slate-800/50 border-b border-slate-700/50">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-xs border border-slate-600 overflow-hidden flex-shrink-0 bg-slate-800">
+                    {userAvatar ? (
+                      <img src={userAvatar} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className={`w-full h-full ${getAvatarColor(userEmail)} flex items-center justify-center text-xs`}>
+                        {getInitials(userName || userEmail)}
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-white truncate">{userName || userEmail.split('@')[0]}</p>
-                    <p className="text-[10px] text-slate-400 truncate font-medium">{userEmail}</p>
+                    <p className="text-xs font-bold text-white truncate">{userName || userEmail.split('@')[0]}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{userEmail}</p>
                   </div>
                 </div>
               </div>
 
               {/* Menu Items */}
-              <div className="p-1 space-y-0.5 bg-slate-900/50">
-                {/* History */}
+              <div className="p-1 space-y-0.5">
                 {onShowSettings && (
                   <button
                     onClick={() => {
@@ -425,18 +421,14 @@ const UserProfileSection: React.FC<{
                         onClose();
                       }
                     }}
-                    className="w-full flex items-center gap-2 px-2 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all group"
+                    className="w-full flex items-center gap-2 px-2 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all group"
                   >
-                    <div className="w-7 h-7 rounded-md bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 group-hover:text-purple-400 group-hover:border-purple-500/30 transition-all shadow-sm">
-                      <i className="fa-solid fa-clock-rotate-left text-xs"></i>
-                    </div>
-                    <div className="flex-1 text-left">
-                      <span className="font-medium block">Lịch sử phân tích</span>
-                    </div>
+                    <i className="fa-solid fa-clock-rotate-left text-xs w-4 text-slate-400 group-hover:text-cyan-400"></i>
+                    <span className="font-medium">Lịch sử</span>
                   </button>
                 )}
                 
-                <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-0.5"></div>
+                <div className="h-px bg-slate-700/30 my-1"></div>
 
                 {/* Logout */}
                 <button
@@ -449,9 +441,7 @@ const UserProfileSection: React.FC<{
                   }}
                   className="w-full flex items-center gap-2 px-2 py-2 text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all group"
                 >
-                  <div className="w-7 h-7 rounded-md bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 group-hover:bg-red-500/20 transition-all shadow-sm">
-                    <i className="fa-solid fa-right-from-bracket text-xs"></i>
-                  </div>
+                  <i className="fa-solid fa-right-from-bracket text-xs w-4"></i>
                   <span className="font-medium">Đăng xuất</span>
                 </button>
               </div>
