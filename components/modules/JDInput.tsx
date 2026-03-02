@@ -227,75 +227,73 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
   };
 
   return (
-    <section id="module-jd" className="module-pane active w-full" aria-labelledby="jd-title">
-      <div className="w-full px-4 sm:px-8 lg:px-16 xl:px-24 py-6">
+    <section id="module-jd" className="module-pane active w-full min-h-screen flex flex-col" aria-labelledby="jd-title">
+      <div className="w-full px-4 sm:px-4 lg:px-6 xl:px-8 py-6 flex flex-col flex-1 overflow-hidden">
+        {/* Unified Container for all 3 sections */}
+        <div className="flex flex-col flex-1 min-h-0 bg-slate-900/60 border border-slate-800 rounded-xl p-4 gap-4">
           {/* Job Position Input */}
-          <div className="mb-6">
-            <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4">
-              <label htmlFor="job-position" className="flex items-center justify-between text-xs font-semibold tracking-wide text-slate-100">
-                <span className="flex items-center gap-2 uppercase">
-                  <i className="fa-solid fa-briefcase text-slate-300"></i>
-                  Chức danh công việc <span className="text-red-300">*</span>
-                </span>
-                <span className="text-[11px] font-normal text-slate-400">Tối đa 100 ký tự</span>
-              </label>
-              <input
-                type="text"
-                id="job-position"
-                value={jobPosition}
-                onChange={(e) => setJobPosition(e.target.value)}
-                className="mt-3 w-full text-base px-3 py-2 bg-slate-950/40 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
-                placeholder="Ví dụ: Senior Frontend Developer, Product Manager…"
-                maxLength={100}
-              />
-            </div>
+          <div className="flex-shrink-0">
+            <label htmlFor="job-position" className="flex items-center justify-between text-xs font-semibold tracking-wide text-slate-100">
+              <span className="flex items-center gap-2 uppercase">
+                <i className="fa-solid fa-briefcase text-slate-300"></i>
+                Chức danh công việc <span className="text-red-300">*</span>
+              </span>
+              <span className="text-[11px] font-normal text-slate-400">Tối đa 100 ký tự</span>
+            </label>
+            <input
+              type="text"
+              id="job-position"
+              value={jobPosition}
+              onChange={(e) => setJobPosition(e.target.value)}
+              className="mt-3 w-full text-base px-3 py-2 bg-slate-950/40 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+              placeholder="Ví dụ: Senior Frontend Developer, Product Manager…"
+              maxLength={100}
+            />
           </div>
 
           {/* Job Description Input */}
-          <div className="mb-6">
-            <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4">
-              <label htmlFor="job-description" className="flex items-center justify-between text-xs font-semibold tracking-wide text-slate-100">
-                <span className="flex items-center gap-2 uppercase">
-                  <i className="fa-solid fa-file-lines text-slate-300"></i>
-                  Job Description <span className="text-red-300">*</span>
-                </span>
-                <button
-                  type="button"
-                  className="text-[11px] text-slate-400 hover:text-slate-200 transition-colors"
-                  title="Mô tả, yêu cầu, quyền lợi, thông tin công ty, KPI quan trọng"
-                  aria-label="Hướng dẫn điền JD"
-                >
-                  ℹ️
-                </button>
-              </label>
-              <div className="relative mt-3">
-                <textarea
-                  id="job-description"
-                  className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700 rounded-lg min-h-[360px] text-sm text-white leading-relaxed placeholder-slate-500 resize-none focus:outline-none focus:ring-1 focus:ring-purple-400 focus:border-purple-400 whitespace-pre-wrap"
-                  placeholder="Dán JD vào đây hoặc tải file PDF/DOCX/PNG."
-                  value={jdText}
-                  onChange={(e) => setJdText(e.target.value)}
-                ></textarea>
+          <div className="flex-1 flex flex-col min-h-0">
+            <label htmlFor="job-description" className="flex items-center justify-between text-xs font-semibold tracking-wide text-slate-100">
+              <span className="flex items-center gap-2 uppercase">
+                <i className="fa-solid fa-file-lines text-slate-300"></i>
+                Job Description <span className="text-red-300">*</span>
+              </span>
+              <button
+                type="button"
+                className="text-[11px] text-slate-400 hover:text-slate-200 transition-colors"
+                title="Mô tả, yêu cầu, quyền lợi, thông tin công ty, KPI quan trọng"
+                aria-label="Hướng dẫn điền JD"
+              >
+                ℹ️
+              </button>
+            </label>
+            <div className="relative mt-3 flex-1 flex flex-col min-h-0 overflow-hidden">
+              <textarea
+                id="job-description"
+                className="flex-1 px-3 py-3 bg-slate-950/40 border border-slate-700 rounded-lg text-sm text-white leading-relaxed placeholder-slate-500 resize-none focus:outline-none focus:ring-1 focus:ring-purple-400 focus:border-purple-400 whitespace-pre-wrap overflow-y-auto"
+                placeholder="Dán JD vào đây hoặc tải file PDF/DOCX/PNG."
+                value={jdText}
+                onChange={(e) => setJdText(e.target.value)}
+              ></textarea>
 
-                {isSummarizing && (
-                  <div className="absolute top-2 right-2 flex items-center gap-2 text-purple-300 bg-slate-950/80 rounded-md px-2 py-1">
-                    <i className="fa-solid fa-spinner fa-spin text-xs"></i>
-                    <span className="text-[11px] font-medium">AI đang tối ưu</span>
-                  </div>
-                )}
-
-                <div className="absolute bottom-2 right-2 text-[11px] font-mono text-slate-500 bg-slate-950/70 px-2 py-0.5 rounded">
-                  {characterCount} ký tự
+              {isSummarizing && (
+                <div className="absolute top-2 right-2 flex items-center gap-2 text-purple-300 bg-slate-950/80 rounded-md px-2 py-1">
+                  <i className="fa-solid fa-spinner fa-spin text-xs"></i>
+                  <span className="text-[11px] font-medium">AI đang tối ưu</span>
                 </div>
+              )}
+
+              <div className="absolute bottom-2 right-2 text-[11px] font-mono text-slate-500 bg-slate-950/70 px-2 py-0.5 rounded">
+                {characterCount} ký tự
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Nhập nội dung rõ ràng để AI bám sát JD gốc.</p>
-              <p className="text-[11px] text-slate-500 mt-1">Khuyến nghị ưu tiên file PDF/DOCX khi OCR để trích xuất chính xác hơn.</p>
             </div>
+            <p className="text-[11px] text-slate-400 mt-2">Nhập nội dung rõ ràng để AI bám sát JD gốc.</p>
+            <p className="text-[11px] text-slate-500 mt-1">Khuyến nghị ưu tiên file PDF/DOCX khi OCR để trích xuất chính xác hơn.</p>
           </div>
           
           {/* Error Messages */}
           {(ocrError || summarizeError) && (
-            <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-xl">
+            <div className="flex-shrink-0 p-4 bg-red-900/20 border border-red-500/30 rounded-xl">
               <div className="flex items-center gap-2 text-red-400">
                 <i className="fa-solid fa-triangle-exclamation"></i>
                 <span className="font-medium">Lỗi xử lý</span>
@@ -305,7 +303,7 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 flex-shrink-0">
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Upload Group */}
               <div className={`flex-1 flex gap-2 transition-all duration-300 ${showUploadOptions ? 'flex-row' : 'flex-col'}`}>
@@ -384,10 +382,9 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
                 <span>Hoàn thành</span>
               </button>
             </div>
-
-            <p className="text-[12px] text-slate-500 text-center">OCR & AI hoạt động độc lập, bạn có thể dùng từng bước hoặc kết hợp.</p>
           </div>
         </div>
+      </div>
     </section>
   );
 };

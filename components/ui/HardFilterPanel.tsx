@@ -157,9 +157,9 @@ const HardFilterPanel: React.FC<HardFilterPanelProps> = ({ hardFilters, setHardF
     return (
         <div className="space-y-6">
             {/* Group 1: Basic Info */}
-            <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-800/50">
-                <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <i className="fa-solid fa-sliders text-cyan-500"></i> Điều kiện cơ bản
+            <div className="rounded-xl p-4 border bg-gradient-to-br from-slate-900/40 to-slate-900/20 border-cyan-500/20 hover:border-cyan-500/30 transition-colors">
+                <h5 className="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-sliders text-cyan-400"></i> Điều kiện cơ bản
                 </h5>
                 <div className="grid grid-cols-2 gap-4">
                     {selectFieldConfigs.map(renderCompactField)}
@@ -167,9 +167,9 @@ const HardFilterPanel: React.FC<HardFilterPanelProps> = ({ hardFilters, setHardF
             </div>
 
             {/* Group 2: Context & Quality */}
-            <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-800/50">
-                <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <i className="fa-solid fa-layer-group text-purple-500"></i> Chuyên môn & Yêu cầu
+            <div className="rounded-xl p-4 border bg-gradient-to-br from-slate-900/40 to-slate-900/20 border-cyan-500/20 hover:border-cyan-500/30 transition-colors">
+                <h5 className="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-layer-group text-cyan-400"></i> Chuyên môn & Yêu cầu
                 </h5>
                 <div className="grid grid-cols-1 gap-4">
                     {/* Industry */}
