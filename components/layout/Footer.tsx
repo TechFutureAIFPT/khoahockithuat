@@ -26,10 +26,10 @@ const Footer: React.FC = () => {
               </div>
               <span className="text-sm font-bold text-white">SupportHR</span>
             </div>
-            <p className="text-xs leading-relaxed text-slate-400">
+            <p className="text-sm leading-relaxed text-slate-400">
               Nền tảng AI chuyên biệt cho quy trình tuyển dụng. Tự động sàng lọc, phân tích và tìm ứng viên sáng giá.
             </p>
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-2 text-sm">
               <span className="inline-flex items-center gap-1 text-emerald-400">
                 <i className="fa-solid fa-check"></i>
                 Sẵn dùng 24/7
@@ -39,8 +39,8 @@ const Footer: React.FC = () => {
 
           {/* Product */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Sản phẩm</h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Sản phẩm</h4>
+            <ul className="space-y-2 text-sm text-slate-400">
               <li><a href="#features" className="hover:text-cyan-400 transition-colors">Tính năng chính</a></li>
               <li><a href="#pricing" className="hover:text-cyan-400 transition-colors">Bảng giá</a></li>
               <li><a href="#compare" className="hover:text-cyan-400 transition-colors">So sánh</a></li>
@@ -50,8 +50,8 @@ const Footer: React.FC = () => {
 
           {/* Company */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Công ty</h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Công ty</h4>
+            <ul className="space-y-2 text-sm text-slate-400">
               <li><a href="#about" className="hover:text-cyan-400 transition-colors">Về chúng tôi</a></li>
               <li><a href="#blog" className="hover:text-cyan-400 transition-colors">Blog</a></li>
               <li><a href="#careers" className="hover:text-cyan-400 transition-colors">Tuyển dụng</a></li>
@@ -61,8 +61,8 @@ const Footer: React.FC = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Liên hệ</h4>
-            <div className="space-y-2.5 text-xs text-slate-400">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wide mb-3 text-slate-300">Liên hệ</h4>
+            <div className="space-y-2.5 text-sm text-slate-400">
               <div>
                 <p className="text-slate-500 mb-1">Điện thoại</p>
                 <a href="tel:0899280108" className="text-white hover:text-cyan-400 transition-colors font-medium">
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
         <div className="h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
 
         {/* Bottom Footer */}
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
           <div className="flex items-center gap-2">
             <span>© 2026 SupportHR.</span>
             <span className="hidden sm:inline">|</span>
