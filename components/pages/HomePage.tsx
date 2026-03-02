@@ -57,6 +57,7 @@ const HomePage: React.FC<HomePageProps> = ({ setActiveStep, isLoggedIn, onLoginR
     { label: 'Tính năng', target: 'features' },
     { label: 'Quy trình', target: 'steps' },
     { label: 'Doanh nghiệp', target: 'partners' },
+    { label: 'Bảng giá', target: 'pricing' },
     { label: 'Lý do chọn', target: 'why-support-hr' },
     { label: 'So sánh', target: 'compare' },
   ];
