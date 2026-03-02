@@ -188,13 +188,13 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
   }, [setCvFiles]);
 
   return (
-    <section id="module-upload" className="module-pane active w-full min-h-screen flex flex-col">
-      <div className="relative overflow-hidden bg-slate-950/50 border border-slate-800 rounded-2xl shadow-xl backdrop-blur-sm flex flex-col flex-1 min-h-0">
+    <section id="module-upload" className="module-pane active w-full flex flex-col">
+      <div className="relative overflow-hidden bg-slate-950/50 border border-slate-800 rounded-2xl shadow-xl backdrop-blur-sm flex flex-col h-[calc(100vh-120px)]">
         {/* Background decoration - reduced opacity/size */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
 
-        <div className="relative z-10 p-6 space-y-6 flex-1 flex flex-col min-h-0">
+        <div className="relative z-10 p-6 space-y-6 flex-1 flex flex-col overflow-hidden">
           {/* Compact Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/50 pb-4">
             <div>
@@ -223,7 +223,7 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-6 flex-1 min-h-0">
+          <div className="grid lg:grid-cols-12 gap-6 flex-1 overflow-hidden">
             {/* Left Column: Upload & Actions (5 cols) */}
             <div className="lg:col-span-5 space-y-4">
               {/* Upload Zone */}
