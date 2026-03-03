@@ -862,7 +862,7 @@ const HomePage: React.FC<HomePageProps> = ({
             ></div>
           )}
         </nav>
-        <div id="hero" className="rounded-3xl p-4 sm:p-8 sm:py-20 lg:py-40 overflow-hidden flex flex-col items-center justify-center text-center">
+        <div id="hero" className="rounded-3xl p-4 sm:p-8 sm:py-10 lg:py-16 overflow-hidden flex flex-col items-center justify-center text-center">
           <div className="w-full max-w-4xl space-y-10">
             <div className="space-y-6">
               <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white leading-tight break-words">
