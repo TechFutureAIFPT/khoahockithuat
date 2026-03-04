@@ -80,6 +80,7 @@ const ScreenerPage: React.FC<ScreenerPageProps> = (props) => {
             setWeights={props.setWeights}
             hardFilters={props.hardFilters}
             setHardFilters={props.setHardFilters}
+            sidebarCollapsed={props.sidebarCollapsed}
             onComplete={() => {
               props.markStepAsCompleted('weights');
               props.setActiveStep('upload');
