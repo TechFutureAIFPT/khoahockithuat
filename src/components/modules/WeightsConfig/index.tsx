@@ -107,36 +107,36 @@ const WeightsConfig: React.FC<WeightsConfigProps> = memo(({ weights, setWeights,
 
       {/* ─── FIXED HEADER BAR ─── */}
       <div className={`fixed top-14 md:top-0 left-0 right-0 z-30 ${sidebarWidth} transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]`}>
-        <div className="bg-slate-900 border-b border-slate-700/60 h-[64px] flex items-center px-5 gap-4">
+        <div className="bg-slate-900 border-b border-slate-800 h-[72px] flex items-center px-6 gap-4">
 
           {/* Step badge + Title */}
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 flex-shrink-0">
-              <span className="font-bold text-base">2</span>
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 flex-shrink-0">
+              <span className="font-bold text-lg">2</span>
             </div>
             <div className="min-w-0">
-              <h2 className="text-[15px] font-bold text-white leading-tight truncate">Cấu hình Tiêu chí</h2>
-              <p className="text-[11px] text-slate-400 leading-tight truncate">Thiết lập bộ lọc và trọng số đánh giá</p>
+              <h2 className="text-lg font-bold text-white leading-tight truncate">Cấu hình Tiêu chí</h2>
+              <p className="text-xs text-slate-400 leading-tight truncate">Thiết lập bộ lọc và trọng số đánh giá</p>
             </div>
           </div>
 
           {/* Step Tabs */}
-          <div className="flex items-center bg-slate-800/60 rounded-lg p-1 border border-slate-700/60 flex-shrink-0">
+          <div className="flex items-center bg-slate-800/40 rounded-xl p-1 border border-slate-700/50 flex-shrink-0">
             <button
               onClick={() => setStep(1)}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${step === 1
-                  ? 'bg-slate-700 text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-300'
+              className={`px-5 py-2 rounded-lg text-[13px] font-semibold transition-all ${step === 1
+                ? 'bg-slate-700 text-white shadow-lg'
+                : 'text-slate-500 hover:text-slate-300'
                 }`}
             >
               1. Bộ lọc
             </button>
-            <div className="w-px h-4 bg-slate-700 mx-0.5" />
+            <div className="w-[1px] h-5 bg-slate-700/60 mx-1" />
             <button
               onClick={() => { if (validateFilters()) setStep(2); }}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${step === 2
-                  ? 'bg-slate-700 text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-300'
+              className={`px-5 py-2 rounded-lg text-[13px] font-semibold transition-all ${step === 2
+                ? 'bg-slate-700 text-white shadow-lg'
+                : 'text-slate-500 hover:text-slate-300'
                 }`}
             >
               2. Trọng số
@@ -146,136 +146,149 @@ const WeightsConfig: React.FC<WeightsConfigProps> = memo(({ weights, setWeights,
         </div>
       </div>
 
-      {/* ─── MAIN CONTENT AREA (below fixed header) ─── */}
-      {/* pt = mobile-nav(56px) + header(64px) = 120px on mobile; header(64px) on desktop */}
-      <div className="flex-1 overflow-y-auto pt-[120px] md:pt-[64px] custom-scrollbar">
-        <div className="grid lg:grid-cols-12 gap-6 p-5 items-start">
+      {/* ─── MAIN CONTENT AREA ─── */}
+      <div className="flex-1 overflow-y-auto pt-[128px] md:pt-[72px] custom-scrollbar">
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          <div className="grid lg:grid-cols-12 gap-10 items-start">
 
-          {/* Left Column: Content Area (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col bg-slate-900/50 rounded-xl border border-slate-800/60 overflow-hidden">
-            <div className="p-4 border-b border-slate-800/50 bg-slate-900/70">
-              <h4 className="font-medium text-slate-200 text-sm">
-                {step === 1 ? 'Cấu hình bộ lọc' : 'Danh sách tiêu chí'}
-              </h4>
+            {/* Left Column: Content Area (7 cols) */}
+            <div className="lg:col-span-12 xl:col-span-8 flex flex-col space-y-12">
+              <div className="flex flex-col">
+                <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                  <span className="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                  {step === 1 ? 'Cấu hình bộ lọc' : 'Danh sách tiêu chí'}
+                </h4>
+                <p className="text-sm text-slate-500 ml-4.5">
+                  {step === 1
+                    ? 'Xác định các điều kiện bắt buộc để sàng lọc ứng viên phù hợp nhất.'
+                    : 'Phân bổ mức độ quan trọng cho từng nhóm kỹ năng và yêu cầu.'}
+                </p>
+              </div>
+
+              <div className="min-h-[400px]">
+                {step === 1 ? (
+                  <HardFilterPanel hardFilters={hardFilters} setHardFilters={setHardFilters} />
+                ) : (
+                  <div className="space-y-6">
+                    {primaryCriteria.map((criterion) => (
+                      <WeightTile
+                        key={criterion.key}
+                        criterion={criterion}
+                        setWeights={setWeights}
+                        isExpanded={expandedCriterion === criterion.key}
+                        onToggle={() =>
+                          setExpandedCriterion((prev) => (prev === criterion.key ? null : criterion.key))
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="overflow-y-auto p-4 custom-scrollbar">
-              {step === 1 ? (
-                <HardFilterPanel hardFilters={hardFilters} setHardFilters={setHardFilters} />
-              ) : (
-                <div className="space-y-4">
-                  {primaryCriteria.map((criterion) => (
-                    <WeightTile
-                      key={criterion.key}
-                      criterion={criterion}
-                      setWeights={setWeights}
-                      isExpanded={expandedCriterion === criterion.key}
-                      onToggle={() =>
-                        setExpandedCriterion((prev) => (prev === criterion.key ? null : criterion.key))
-                      }
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+            {/* Right Column: Controls & Info (4 cols) - Sticky on Desktop */}
+            <div className="lg:col-span-12 xl:col-span-4 lg:sticky lg:top-28">
+              <div className="flex flex-col gap-6">
 
-          {/* Right Column: Controls & Info (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col bg-slate-900/50 rounded-xl border border-slate-800/60 overflow-hidden">
-            <div className="p-4 border-b border-slate-800/50 bg-slate-900/70">
-              <h4 className="font-medium text-slate-200 text-sm">Tổng quan &amp; Thao tác</h4>
-            </div>
+                {step === 1 ? (
+                  <>
+                    <div className="bg-slate-900/40 rounded-2xl p-6 border border-slate-800/60 backdrop-blur-sm">
+                      <h4 className="text-lg font-bold text-white mb-2">Tiêu chí Lọc (Hard Filters)</h4>
+                      <p className="text-xs text-slate-400 mb-6 leading-relaxed">
+                        Các tiêu chí này được AI sử dụng để tự động loại bỏ các hồ sơ không đạt yêu cầu tối thiểu về địa điểm, kinh nghiệm hoặc bằng cấp.
+                      </p>
 
-            <div className="p-6 flex flex-col gap-4">
-              {step === 1 ? (
-                <>
-                  <div className="bg-slate-900/50 rounded-xl p-5 border border-slate-800">
-                    <h4 className="text-lg font-medium text-white mb-2">Tiêu chí Lọc (Hard Filters)</h4>
-                    <p className="text-sm text-slate-400 mb-4">
-                      Các tiêu chí này dùng để loại bỏ nhanh các ứng viên không đạt yêu cầu tối thiểu.
-                    </p>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-slate-500 font-medium">Tiêu chí bắt buộc</span>
+                          <span className="px-2 py-0.5 rounded-md bg-slate-800 text-white font-bold">{mandatoryProgress.active}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-slate-500 font-medium">Đã điền hợp lệ</span>
+                          <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-bold">{mandatoryProgress.fulfilled}</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-[10px]">
+                            <span className="text-slate-600 uppercase tracking-wider font-bold">Tiến độ</span>
+                            <span className="text-cyan-400 font-bold">{mandatoryProgress.percent}%</span>
+                          </div>
+                          <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/30">
+                            <div
+                              className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-700 ease-out"
+                              style={{ width: `${mandatoryProgress.percent}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <div className="space-y-3">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Tiêu chí bắt buộc</span>
-                        <span className="text-white font-medium">{mandatoryProgress.active}</span>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-slate-400">Đã điền hợp lệ</span>
-                        <span className="text-emerald-400 font-medium">{mandatoryProgress.fulfilled}</span>
-                      </div>
-                      <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500"
-                          style={{ width: `${mandatoryProgress.percent}%` }}
-                        />
-                      </div>
+                      <button
+                        onClick={handleFiltersComplete}
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-xl shadow-blue-900/20 transition-all flex items-center justify-center gap-3 group"
+                      >
+                        Tiếp tục: Trọng số
+                        <i className="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1" />
+                      </button>
+
+                      {validationErrorFilters && (
+                        <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                          <i className="fa-solid fa-circle-exclamation text-red-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-xs text-red-200 leading-relaxed font-medium">{validationErrorFilters}</p>
+                        </div>
+                      )}
                     </div>
-                  </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-slate-900/40 rounded-2xl p-6 border border-slate-800/60 backdrop-blur-sm">
+                      <h4 className="text-lg font-bold text-white mb-2">Phân bổ Trọng số</h4>
+                      <p className="text-xs text-slate-400 mb-6 leading-relaxed">
+                        Thiết lập trọng số ưu tiên cho từng tiêu chí. Tổng trọng số bắt buộc phải đạt chính xác 100%.
+                      </p>
 
-                  <button
-                    onClick={handleFiltersComplete}
-                    className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
-                  >
-                    Tiếp tục: Trọng số <i className="fa-solid fa-arrow-right" />
-                  </button>
-
-                  {validationErrorFilters && (
-                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-3">
-                      <i className="fa-solid fa-circle-exclamation text-red-400 mt-0.5" />
-                      <p className="text-xs text-red-200">{validationErrorFilters}</p>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div className="bg-slate-900/50 rounded-xl p-5 border border-slate-800">
-                    <h4 className="text-lg font-medium text-white mb-2">Phân bổ Trọng số</h4>
-                    <p className="text-sm text-slate-400 mb-4">
-                      Quyết định mức độ quan trọng của từng nhóm tiêu chí trong điểm số cuối cùng.
-                    </p>
-
-                    <div className={`p-4 rounded-lg border ${weightStatus.bg} mb-4`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-sm font-bold ${weightStatus.tone}`}>{weightStatus.label}</span>
-                        <span className="text-xs text-slate-400">{totalWeight}/100%</span>
+                      <div className={`p-4 rounded-xl border ${weightStatus.bg} mb-6 transition-colors duration-300`}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className={`text-xs font-bold uppercase tracking-wider ${weightStatus.tone}`}>{weightStatus.label}</span>
+                          <span className="text-sm font-bold text-white tabular-nums">{totalWeight}/100%</span>
+                        </div>
+                        <p className="text-[11px] text-slate-300 font-medium">{weightStatus.desc}</p>
                       </div>
-                      <p className="text-xs text-slate-300">{weightStatus.desc}</p>
+
+                      <TotalWeightDisplay totalWeight={totalWeight} />
                     </div>
 
-                    <TotalWeightDisplay totalWeight={totalWeight} />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      onClick={() => setStep(1)}
-                      className="py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium border border-slate-700 transition-all"
-                    >
-                      <i className="fa-solid fa-arrow-left mr-2" /> Quay lại
-                    </button>
-                    <button
-                      onClick={handleWeightsComplete}
-                      disabled={totalWeight !== 100}
-                      className={`py-3 rounded-xl font-medium shadow-lg transition-all flex items-center justify-center gap-2 ${totalWeight === 100
-                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20'
-                          : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
-                        }`}
-                    >
-                      Hoàn tất <i className="fa-solid fa-check" />
-                    </button>
-                  </div>
-
-                  {validationErrorWeights && (
-                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-3">
-                      <i className="fa-solid fa-circle-exclamation text-red-400 mt-0.5" />
-                      <p className="text-xs text-red-200">{validationErrorWeights}</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => setStep(1)}
+                        className="py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold border border-slate-700 transition-all flex items-center justify-center gap-2"
+                      >
+                        <i className="fa-solid fa-arrow-left" /> Quay lại
+                      </button>
+                      <button
+                        onClick={handleWeightsComplete}
+                        disabled={totalWeight !== 100}
+                        className={`py-4 rounded-xl font-bold shadow-xl transition-all flex items-center justify-center gap-2 ${totalWeight === 100
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-900/30'
+                          : 'bg-slate-800 text-slate-600 cursor-not-allowed border border-slate-700'
+                          }`}
+                      >
+                        Hoàn tất <i className="fa-solid fa-check" />
+                      </button>
                     </div>
-                  )}
-                </>
-              )}
+
+                    {validationErrorWeights && (
+                      <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <i className="fa-solid fa-circle-exclamation text-red-400 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs text-red-200 leading-relaxed font-medium">{validationErrorWeights}</p>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>
