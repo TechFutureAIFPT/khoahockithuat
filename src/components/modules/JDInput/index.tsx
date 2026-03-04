@@ -257,13 +257,13 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
         <div className="bg-slate-900 h-[101px] flex items-stretch">
 
           {/* CỘT TRÁI: Ô nhập chức danh công việc — full height */}
-          <div className="flex-1 flex items-center pr-3">
+          <div className="flex-1 flex items-center pr-3 bg-slate-900/60">
             <input
               type="text"
               id="job-position"
               value={jobPosition}
               onChange={(e) => setJobPosition(e.target.value)}
-              className="w-full h-full text-base pl-5 pr-3 bg-transparent border-0 border-b border-slate-700/70 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors"
+              className="w-full h-full text-base pl-5 pr-3 bg-transparent border-0 border-b-2 border-indigo-500/40 text-violet-100 placeholder-slate-500 focus:outline-none focus:border-indigo-400 transition-colors font-medium tracking-wide"
               placeholder="Nhập chức danh công việc… VD: Senior Frontend Developer, Product Manager"
               maxLength={100}
             />
@@ -273,54 +273,54 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
           <div className="w-px bg-slate-700/50 my-3 flex-shrink-0"></div>
 
           {/* CỘT PHẢI: 3 info fields — editable sau khi AI điền */}
-          <div className="w-[340px] flex-shrink-0 flex flex-col justify-center gap-1.5 px-4 py-2">
+          <div className="w-[340px] flex-shrink-0 flex flex-col justify-center gap-2 px-4 py-2 bg-slate-800/40 border-l border-slate-700/50">
 
-            {/* Tên công ty */}
-            <div className="flex items-center gap-2">
-              <i className="fa-solid fa-building text-[10px] text-slate-500 w-3 flex-shrink-0"></i>
+            {/* Tên công ty — cyan */}
+            <div className="flex items-center gap-2 group">
+              <i className="fa-solid fa-building text-[10px] text-cyan-400 w-3 flex-shrink-0"></i>
               <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="Tên công ty (AI tự điền)"
-                className="flex-1 text-[12px] bg-transparent text-slate-300 placeholder-slate-600 border-0 focus:outline-none truncate"
+                className="flex-1 text-[12px] bg-transparent text-cyan-300 placeholder-slate-600 border-0 focus:outline-none truncate font-medium"
               />
               {companyName && (
-                <button onClick={() => setCompanyName('')} className="text-slate-600 hover:text-slate-400 transition-colors flex-shrink-0">
+                <button onClick={() => setCompanyName('')} className="text-slate-600 hover:text-cyan-400 transition-colors flex-shrink-0">
                   <i className="fa-solid fa-xmark text-[9px]"></i>
                 </button>
               )}
             </div>
 
-            {/* Mức lương */}
-            <div className="flex items-center gap-2">
-              <i className="fa-solid fa-money-bill-wave text-[10px] text-slate-500 w-3 flex-shrink-0"></i>
+            {/* Mức lương — emerald */}
+            <div className="flex items-center gap-2 group">
+              <i className="fa-solid fa-money-bill-wave text-[10px] text-emerald-400 w-3 flex-shrink-0"></i>
               <input
                 type="text"
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
                 placeholder="Mức lương (AI tự điền)"
-                className="flex-1 text-[12px] bg-transparent text-slate-300 placeholder-slate-600 border-0 focus:outline-none truncate"
+                className="flex-1 text-[12px] bg-transparent text-emerald-300 placeholder-slate-600 border-0 focus:outline-none truncate font-medium"
               />
               {salary && (
-                <button onClick={() => setSalary('')} className="text-slate-600 hover:text-slate-400 transition-colors flex-shrink-0">
+                <button onClick={() => setSalary('')} className="text-slate-600 hover:text-emerald-400 transition-colors flex-shrink-0">
                   <i className="fa-solid fa-xmark text-[9px]"></i>
                 </button>
               )}
             </div>
 
-            {/* Tóm tắt yêu cầu */}
-            <div className="flex items-start gap-2">
-              <i className="fa-solid fa-list-check text-[10px] text-slate-500 w-3 flex-shrink-0 mt-0.5"></i>
+            {/* Tóm tắt yêu cầu — amber */}
+            <div className="flex items-start gap-2 group">
+              <i className="fa-solid fa-list-check text-[10px] text-amber-400 w-3 flex-shrink-0 mt-0.5"></i>
               <input
                 type="text"
                 value={requirementsSummary}
                 onChange={(e) => setRequirementsSummary(e.target.value)}
                 placeholder="Tóm tắt yêu cầu (AI tự điền)"
-                className="flex-1 text-[12px] bg-transparent text-slate-300 placeholder-slate-600 border-0 focus:outline-none truncate"
+                className="flex-1 text-[12px] bg-transparent text-amber-200 placeholder-slate-600 border-0 focus:outline-none truncate font-medium"
               />
               {requirementsSummary && (
-                <button onClick={() => setRequirementsSummary('')} className="text-slate-600 hover:text-slate-400 transition-colors flex-shrink-0">
+                <button onClick={() => setRequirementsSummary('')} className="text-slate-600 hover:text-amber-400 transition-colors flex-shrink-0">
                   <i className="fa-solid fa-xmark text-[9px]"></i>
                 </button>
               )}
