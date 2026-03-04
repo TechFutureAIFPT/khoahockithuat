@@ -73,6 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({
   const [typedHighlight, setTypedHighlight] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // Statistics State for History Mega Menu
   const [cacheStats, setCacheStats] = useState({
@@ -128,6 +129,14 @@ const HomePage: React.FC<HomePageProps> = ({
     }, 70);
     return () => clearInterval(interval);
   }, [heroHighlight]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsVideoOpen(false);
+    };
+    if (isVideoOpen) document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isVideoOpen]);
 
   const handleStart = () => {
     if (isLoggedIn) {
@@ -908,7 +917,62 @@ const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
 
+        {/* ── App Preview Card with Play Button ── */}
+        <div
+          className="relative w-full max-w-4xl mx-auto mt-6 mb-4 cursor-pointer group/preview px-3 sm:px-0"
+          onClick={() => setIsVideoOpen(true)}
+        >
+          {/* Outer glow ring */}
+          <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-blue-600/40 via-purple-500/25 to-cyan-600/40 blur-xl opacity-60 group-hover/preview:opacity-100 transition-opacity duration-500" />
 
+          {/* Card */}
+          <div className="relative rounded-[20px] overflow-hidden border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.6)] bg-slate-950">
+
+            {/* Video preview frame */}
+            <div className="relative aspect-video overflow-hidden bg-slate-950">
+              <video
+                src="/images/video demo/SPHR Ver3.mp4"
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover opacity-75 group-hover/preview:opacity-95 scale-[1.01] group-hover/preview:scale-100 transition-all duration-500"
+              />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/30 group-hover/preview:from-slate-950/40 transition-all duration-300" />
+
+              {/* Center Play Button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative">
+                  {/* Ripple effect */}
+                  <div className="absolute inset-0 rounded-full bg-white/20 scale-110 group-hover/preview:scale-150 opacity-0 group-hover/preview:opacity-0 transition-all duration-500 animate-ping" />
+                  {/* Button */}
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-[0_8px_40px_rgba(0,0,0,0.5)] group-hover/preview:scale-110 group-hover/preview:bg-white transition-all duration-300">
+                    <i className="fa-solid fa-play text-slate-900 text-xl sm:text-2xl ml-1"></i>
+                  </div>
+                </div>
+              </div>
+
+              {/* LIVE badge */}
+              <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                <span className="text-white text-xs font-bold tracking-wide">DEMO</span>
+              </div>
+            </div>
+
+            {/* Bottom bar */}
+            <div className="px-5 py-3 flex items-center justify-between bg-slate-900/90 border-t border-white/5">
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-circle-play text-blue-400 text-sm"></i>
+                <span className="text-slate-300 text-sm font-semibold">SPHR – AI CV Screening</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-500 text-xs font-medium group-hover/preview:text-slate-300 transition-colors">
+                <i className="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                Nhấn để xem video
+              </div>
+            </div>
+          </div>
+        </div>
 
 
         <div className="mt-10 sm:mt-16 py-10 overflow-hidden">
@@ -1134,6 +1198,47 @@ const HomePage: React.FC<HomePageProps> = ({
 
 
       </section >
+
+      {/* ── Video Popup Modal ── */}
+      {isVideoOpen && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+          onClick={() => setIsVideoOpen(false)}
+        >
+          <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" style={{ animation: 'fadeIn .2s ease' }} />
+          <div
+            className="relative z-10 w-full max-w-4xl rounded-2xl overflow-hidden border border-slate-700 shadow-2xl shadow-black/70"
+            style={{ animation: 'scaleIn .25s ease' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3 bg-slate-900/95 border-b border-slate-700">
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-circle-play text-blue-400"></i>
+                <span className="text-white font-semibold text-sm">Video Demo – SPHR</span>
+              </div>
+              <button
+                onClick={() => setIsVideoOpen(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+              >
+                <i className="fa-solid fa-xmark text-lg"></i>
+              </button>
+            </div>
+            <div className="bg-black aspect-video">
+              <video
+                src="/images/video demo/SPHR Ver3.mp4"
+                controls
+                autoPlay
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+          <style>{`
+            @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
+            @keyframes scaleIn { from { opacity:0; transform:scale(.92) } to { opacity:1; transform:scale(1) } }
+          `}</style>
+        </div>
+      )}
+
       <ChatBubble />
     </div >
   );
