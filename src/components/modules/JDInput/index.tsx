@@ -278,7 +278,7 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
                           px-3 gap-2 overflow-x-auto items-center bg-cyan-950/40 md:h-auto h-[38px] border-t border-slate-800/40 md:border-t-0">
 
             {/* Tên công ty — cyan */}
-            <div className="jd-field flex items-center gap-1.5 flex-shrink-0 md:flex-shrink md:w-full">
+            <div className="jd-field flex items-center gap-1.5 flex-shrink-0 md:flex-shrink md:w-full border-b border-cyan-400/30 pb-1.5 mb-1">
               <i className="fa-solid fa-building text-[10px] text-cyan-400 flex-shrink-0"></i>
               <input
                 type="text"
