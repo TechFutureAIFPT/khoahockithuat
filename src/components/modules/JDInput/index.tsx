@@ -336,20 +336,19 @@ const JDInput: React.FC<JDInputProps> = ({ jdText, setJdText, jobPosition, setJo
 
           </div>
 
-          {/* Counter + status — desktop only */}
-          <div className="jd-col-counter hidden md:flex flex-col justify-center gap-1 pr-4 pl-2 flex-shrink-0 border-l border-slate-700/40">
-            <span className="text-[10px] text-slate-600 tabular-nums whitespace-nowrap">{jobPosition.length}/100</span>
-            {jobPosition.trim().length > 3 && (
-              <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-medium whitespace-nowrap">
+          {/* Status Badge — desktop only */}
+          <div className="jd-col-counter hidden md:flex items-center justify-center px-4 flex-shrink-0 border-l border-slate-700/40">
+            {jobPosition.trim().length > 3 && !isSummarizing && (
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-400 font-bold uppercase tracking-wider animate-in fade-in zoom-in duration-300">
                 <i className="fa-solid fa-circle-check text-[9px]"></i>
                 Sẵn sàng
-              </span>
+              </div>
             )}
             {isSummarizing && (
-              <span className="flex items-center gap-1 text-[10px] text-purple-400 whitespace-nowrap">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-[10px] text-purple-400 font-bold uppercase tracking-wider">
                 <i className="fa-solid fa-spinner fa-spin text-[9px]"></i>
-                AI...
-              </span>
+                Đang xử lý
+              </div>
             )}
           </div>
 
