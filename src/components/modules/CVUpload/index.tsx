@@ -174,11 +174,11 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
 
       {/* ─── MAIN CONTENT AREA ─── */}
       <div className="flex-1 flex flex-col pt-[128px] md:pt-[101px] min-h-0">
-        <div className="flex-1 flex flex-col min-h-0 border-x border-slate-700/80 bg-slate-900 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 flex flex-col min-h-0 bg-slate-900 overflow-y-auto custom-scrollbar">
 
           {/* Upload Block */}
           <div className="p-8 border-b border-slate-800/60 transition-all duration-500">
-            <div className="max-w-4xl mx-auto w-full">
+            <div className="w-full px-6 md:px-10 lg:px-16">
               <div className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl opacity-10 group-hover:opacity-20 transition duration-500"></div>
                 <div className="relative bg-slate-900/40 rounded-xl p-8 border border-slate-800 hover:border-slate-700 transition-colors text-center backdrop-blur-sm">
@@ -220,7 +220,7 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
 
           {/* File List Block */}
           <div className="flex-1 p-8">
-            <div className="max-w-4xl mx-auto w-full flex flex-col h-full">
+            <div className="w-full px-6 md:px-10 lg:px-16 flex flex-col h-full">
               <div className="flex items-center justify-between mb-6">
                 <h4 className="text-xl font-bold text-white flex items-center gap-3">
                   <span className="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
@@ -240,7 +240,7 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
                   <p className="text-xs">Vui lòng tải file để bắt đầu phân tích AI</p>
                 </div>
               ) : (
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {cvFiles.map((file, index) => (
                     <div key={`${file.name}-${index}`} className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/20 border border-slate-800 hover:border-cyan-500/30 hover:bg-slate-800/40 transition-all">
                       <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-cyan-400 group-hover:bg-cyan-500/10 transition-all">
@@ -262,7 +262,7 @@ const CVUpload: React.FC<CVUploadProps> = memo((props) => {
 
           {/* Action Footer Bar */}
           <div className="sticky bottom-0 z-20 border-t border-slate-700/60 bg-slate-800/80 backdrop-blur-md px-6 py-5">
-            <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-5">
+            <div className="w-full px-6 md:px-10 lg:px-16 flex flex-col sm:flex-row items-center gap-5">
 
               <div className="flex-1 w-full order-2 sm:order-1">
                 {error && (

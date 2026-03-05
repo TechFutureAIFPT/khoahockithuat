@@ -322,11 +322,11 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ isLoading, loadingMes
     return uniqueResults;
   }, [rankedAndSortedResults, filter, debouncedSearchTerm]);
 
-  if (isLoading) return <section id="module-analysis" className="module-pane active w-full"><Loader message={loadingMessage} /></section>;
+  if (isLoading) return <section id="module-analysis" className="module-pane active w-full h-full flex flex-col overflow-hidden"><Loader message={loadingMessage} /></section>;
 
   if (results.length === 0) return (
-    <section id="module-analysis" className="module-pane active w-full">
-      <div className="text-center py-16 md:py-20">
+    <section id="module-analysis" className="module-pane active w-full h-full flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col items-center justify-center text-center py-16 md:py-20">
         <div className="relative inline-block mb-6"><i className="fa-solid fa-chart-line text-5xl md:text-6xl text-slate-600 float-animation"></i><div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full pulse-animation"></div></div>
         <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">Sẵn Sàng Phân Tích</h3>
         <p className="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">Kết quả AI sẽ xuất hiện ở đây sau khi bạn cung cấp mô tả công việc và các tệp CV.</p>
@@ -336,7 +336,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ isLoading, loadingMes
 
   return (
     <>
-      <section id="module-analysis" className="module-pane active w-full"><div className="space-y-6">
+      <section id="module-analysis" className="module-pane active w-full px-6 md:px-10 lg:px-16 py-6"><div className="space-y-6">
         {/* Summary header */}
         <div className="grid gap-4 xl:grid-cols-[2fr,1fr]">
           <div className="rounded-3xl border border-slate-800 bg-slate-950/60 p-5 sm:p-6 shadow-2xl shadow-black/30">
