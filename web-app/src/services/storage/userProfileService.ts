@@ -102,12 +102,17 @@ export class UserProfileService {
   // Lưu lịch sử CV filtering
   static async saveCVHistory(uid: string, email: string, historyData: Omit<UserCVHistory, 'uid' | 'email' | 'timestamp' | 'id'>): Promise<void> {
     try {
-      await addDoc(collection(db, CV_HISTORY_COLLECTION), {
+      // Sanitize undefined values to prevent Firebase errors
+      const sanitized = {
         uid,
-        email,
-        ...historyData,
+        email: email || '',
+        jdText: historyData.jdText || '',
+        jdTitle: historyData.jdTitle || 'Không rõ vị trí',
+        cvCount: historyData.cvCount || 0,
+        results: historyData.results ? JSON.parse(JSON.stringify(historyData.results, (_, v) => v === undefined ? null : v)) : [],
         timestamp: serverTimestamp()
-      });
+      };
+      await addDoc(collection(db, CV_HISTORY_COLLECTION), sanitized);
     } catch (error) {
       console.error('Error saving CV history:', error);
       throw error;
@@ -185,11 +190,12 @@ export class UserProfileService {
         const parsedHistory: any[] = JSON.parse(localHistory);
 
         for (const entry of parsedHistory) {
+          if (!entry || !entry.jdText) continue; // Skip entries without jdText
           await this.saveCVHistory(uid, email, {
-            jdText: entry.jdText,
+            jdText: entry.jdText || '',
             jdTitle: entry.jdTitle || 'Vị trí tuyển dụng',
-            cvCount: entry.cvCount,
-            results: entry.results
+            cvCount: entry.cvCount || 0,
+            results: entry.results || []
           });
         }
 

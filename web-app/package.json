@@ -10,16 +10,18 @@
     "embed:data": "tsx scripts/embedData.ts"
   },
   "dependencies": {
-    "@google/genai": "^1.11.0",
+    "@anthropic-ai/sdk": "^0.78.0",
     "@google/generative-ai": "^0.24.1",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "axios": "^1.13.6",
     "canvas": "^3.2.0",
     "firebase": "^12.3.0",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.553.0",
     "mammoth": "^1.9.0",
+    "openai": "^6.27.0",
     "p-queue": "^8.1.1",
     "pdfjs-dist": "^4.10.38",
     "pg": "^8.16.3",
@@ -33,6 +35,7 @@
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.22",
     "dotenv": "^16.4.5",

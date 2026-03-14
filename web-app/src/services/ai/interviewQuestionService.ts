@@ -1,9 +1,9 @@
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
 import type { AnalysisRunData, Candidate } from '../../types';
 import { MODEL_NAME } from '../../constants';
 
 // Sử dụng lại AI client từ geminiService
-let ai: GoogleGenAI | null = null;
+let ai: GoogleGenerativeAI | null = null;
 let currentKeyIndex = 0;
 const apiKeys = [
   import.meta.env.VITE_GEMINI_API_KEY_1,
@@ -12,7 +12,7 @@ const apiKeys = [
   (import.meta as any).env?.VITE_GEMINI_API_KEY_4,
 ].filter(Boolean);
 
-function getAi(): GoogleGenAI {
+function getAi(): GoogleGenerativeAI {
   if (!ai) {
     if (apiKeys.length === 0) {
       throw new Error("No GEMINI_API_KEY environment variables set.");
@@ -21,7 +21,7 @@ function getAi(): GoogleGenAI {
     if (!key) {
       throw new Error("API_KEY environment variable not set.");
     }
-    ai = new GoogleGenAI({ apiKey: key });
+    ai = new GoogleGenerativeAI(key);
   }
   return ai;
 }
@@ -31,16 +31,16 @@ function switchToNextKey() {
   ai = null;
 }
 
-async function generateContentWithFallback(model: string, contents: any, config: any): Promise<any> {
+async function generateContentWithFallback(modelName: string, contents: any, config: any): Promise<any> {
   for (let attempt = 0; attempt < apiKeys.length; attempt++) {
     try {
       const aiInstance = getAi();
-      const response = await aiInstance.models.generateContent({
-        model,
-        contents,
-        config,
+      const model = aiInstance.getGenerativeModel({
+        model: modelName,
+        generationConfig: config
       });
-      return response;
+      const result = await model.generateContent(contents);
+      return result.response;
     } catch (error) {
       console.warn(`API key ${currentKeyIndex + 1} failed:`, error);
       switchToNextKey();
@@ -51,19 +51,19 @@ async function generateContentWithFallback(model: string, contents: any, config:
 
 // Schema cho câu trả lời từ AI
 const questionSetSchema = {
-  type: Type.OBJECT,
+  type: SchemaType.OBJECT,
   properties: {
     "questionSets": {
-      type: Type.ARRAY,
+      type: SchemaType.ARRAY,
       items: {
-        type: Type.OBJECT,
+        type: SchemaType.OBJECT,
         properties: {
-          "category": { type: Type.STRING, description: "Tên danh mục câu hỏi" },
-          "icon": { type: Type.STRING, description: "Font Awesome icon class" },
-          "color": { type: Type.STRING, description: "Tailwind color class" },
+          "category": { type: SchemaType.STRING, description: "Tên danh mục câu hỏi" },
+          "icon": { type: SchemaType.STRING, description: "Font Awesome icon class" },
+          "color": { type: SchemaType.STRING, description: "Tailwind color class" },
           "questions": {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
+            type: SchemaType.ARRAY,
+            items: { type: SchemaType.STRING },
             description: "Danh sách câu hỏi trong danh mục"
           }
         },
@@ -119,7 +119,7 @@ export const generateInterviewQuestions = async (
       topK: 40,
     });
 
-    const result = JSON.parse(response.text);
+    const result = JSON.parse(response.text());
     return result.questionSets || [];
 
   } catch (error) {

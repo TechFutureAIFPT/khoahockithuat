@@ -17,8 +17,22 @@ const COLLECTION = 'cvHistory';
 // New manual save collection ID provided by user
 const MANUAL_COLLECTION_ID = 'CLdl7JGuaOGIuijiDZeG';
 
+// Helper to remove undefined values (Firebase does not accept undefined)
+function sanitizeForFirestore(obj: any): any {
+  if (obj === undefined) return null;
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(sanitizeForFirestore);
+  const result: any = {};
+  for (const key of Object.keys(obj)) {
+    const val = obj[key];
+    result[key] = val === undefined ? null : sanitizeForFirestore(val);
+  }
+  return result;
+}
+
 export async function saveHistorySession({ jdText, jobPosition, locationRequirement, candidates, userEmail, weights, hardFilters }: SaveHistoryParams) {
   try {
+    const safeJdText = jdText || '';
     const total = candidates.length;
     const gradesCount = { A: 0, B: 0, C: 0 };
     candidates.forEach(c => {
@@ -27,36 +41,36 @@ export async function saveHistorySession({ jdText, jobPosition, locationRequirem
     });
     const sorted = [...candidates].filter(c => c.status === 'SUCCESS').sort((a, b) => (b.analysis?.['Tổng điểm'] || 0) - (a.analysis?.['Tổng điểm'] || 0));
     const top = sorted.slice(0, 3).map(c => ({
-      id: c.id,
-      name: c.candidateName,
+      id: c.id || null,
+      name: c.candidateName || '',
       score: c.analysis?.['Tổng điểm'] || 0,
-      jdFit: parseInt(c.analysis?.['Chi tiết']?.find(i => i['Tiêu chí'].startsWith('Phù hợp JD'))?.['Điểm'].split('/')[0] || '0', 10),
+      jdFit: parseInt(c.analysis?.['Chi tiết']?.find((i: any) => i['Tiêu chí']?.startsWith('Phù hợp JD'))?.['Điểm']?.split('/')[0] || '0', 10),
       grade: c.analysis?.['Hạng'] || 'C'
     }));
 
     // Lưu vào Firebase collection chính và cũng đồng bộ với UserProfileService
-    const docRef = await addDoc(collection(db, COLLECTION), {
-      jobPosition,
-      locationRequirement,
-      jdTextSnippet: jdText.slice(0, 300),
+    const docRef = await addDoc(collection(db, COLLECTION), sanitizeForFirestore({
+      jobPosition: jobPosition || '',
+      locationRequirement: locationRequirement || '',
+      jdTextSnippet: safeJdText.slice(0, 300),
       totalCandidates: total,
       grades: gradesCount,
       topCandidates: top,
-      userEmail,
-      fullPayload: { jdText, jobPosition, weights, hardFilters, candidates },
+      userEmail: userEmail || 'anonymous',
+      fullPayload: { jdText: safeJdText, jobPosition: jobPosition || '', weights: weights || {}, hardFilters: hardFilters || {}, candidates },
       createdAt: serverTimestamp(),
       timestamp: Date.now()
-    });
+    }));
 
     // Đồng bộ với UserProfileService nếu user đã đăng nhập
     const currentUser = auth.currentUser;
     if (currentUser && currentUser.email === userEmail) {
       try {
         await UserProfileService.saveCVHistory(currentUser.uid, userEmail, {
-          jdText,
-          jdTitle: jobPosition,
+          jdText: safeJdText,
+          jdTitle: jobPosition || 'Không rõ vị trí',
           cvCount: total,
-          results: candidates
+          results: sanitizeForFirestore(candidates)
         });
       } catch (error) {
         console.warn('Failed to sync with UserProfileService:', error);

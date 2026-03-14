@@ -23,7 +23,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ activeStep, completedSteps })
   const progress = (activeIndex / (steps.length - 1)) * 100;
 
   return (
-    <div className="md:hidden w-full mb-4 px-2 mt-2">
+    <div className="md:hidden w-full mb-2 px-2 mt-1">
       <div className="bg-[#0f172a]/90 backdrop-blur-md border border-slate-800 rounded-xl p-4 shadow-xl">
         <div className="flex items-center justify-between relative">
           {/* Connecting line background */}
@@ -54,9 +54,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ activeStep, completedSteps })
             let textClass = "text-slate-500";
 
             if (isActive) {
-                circleClass = "bg-slate-900 border-2 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.3)] scale-110";
+                circleClass = "bg-slate-900 border-2 border-cyan-400 text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)] scale-110";
                 iconClass = "animate-pulse";
-                textClass = "text-cyan-400 font-bold";
+                textClass = "text-cyan-400 font-bold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]";
             } else if (isCompleted) {
                 circleClass = "bg-slate-900 border-2 border-emerald-500 text-emerald-500";
                 textClass = "text-emerald-500 font-medium";
@@ -70,7 +70,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ activeStep, completedSteps })
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all duration-300 ${circleClass}`}>
                   <i className={`fa-solid ${step.icon} ${iconClass}`}></i>
                 </div>
-                <span className={`text-[10px] mt-1.5 transition-colors duration-300 ${textClass}`}>
+                <span className={`text-[11.5px] mt-1.5 transition-colors duration-300 ${textClass}`}>
                   {step.label}
                 </span>
               </div>
