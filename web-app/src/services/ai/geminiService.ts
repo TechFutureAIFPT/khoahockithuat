@@ -105,7 +105,7 @@ function switchToNextKey() {
   ai = null; // Reset to force re-init with new key
 }
 
-async function generateContentWithFallback(
+export async function generateContentWithFallback(
   model: string,
   contents: any,
   config: any,
@@ -1452,11 +1452,11 @@ export async function* analyzeCVs(
       status: "progress",
       message: `✅ Hoàn tất! Cache hiện có ${cacheStats.size} entries để tăng tốc lần sau.`,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Lỗi phân tích từ AI:", error);
-    const friendlyMessage =
-      "AI không thể hoàn tất phân tích. Vui lòng thử lại sau. (Lỗi giao tiếp với máy chủ AI)";
-    throw new Error(friendlyMessage);
+    // Pass through the specific error message from generateContentWithFallback or other sources
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    throw new Error(errorMessage);
   }
 }
 
@@ -1574,212 +1574,7 @@ export const getChatbotAdvice = async (
   }
 };
 
-// Single-Tab Action Logic cho Gemini
-// Đảm bảo chỉ 1 tab thực thi hành động tại 1 thời điểm
-
-const LOCK_NAME = "gemini-action-lock";
-const CHANNEL_NAME = "gemini_action_channel";
-const LOCK_TTL = 10000; // 10s
-const HEARTBEAT_INTERVAL = 2000; // 2s
-const LOCK_KEY = "gemini_action_lock";
-
-let tabId = generateTabId();
-let heartbeatTimer: number | null = null;
-let isLocked = false;
-let broadcastChannel: BroadcastChannel | null = null;
-
-function generateTabId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
-}
-
-function supportsWebLocks(): boolean {
-  return "locks" in navigator;
-}
-
-function createBroadcastChannel(): BroadcastChannel | null {
-  if ("BroadcastChannel" in window) {
-    return new BroadcastChannel(CHANNEL_NAME);
-  }
-  return null;
-}
-
-function broadcastStatus(busy: boolean) {
-  if (broadcastChannel) {
-    broadcastChannel.postMessage({ type: "status", payload: { busy } });
-  }
-}
-
-function updateUI(busy: boolean, isSelf: boolean = false) {
-  const btn = document.querySelector("#btn") as HTMLButtonElement;
-  const status = document.querySelector("#status") as HTMLElement;
-  if (btn) {
-    btn.disabled = busy;
-  }
-  if (status) {
-    if (busy) {
-      status.textContent = isSelf
-        ? "Đang xử lý tại tab này…"
-        : "Đang xử lý ở tab khác…";
-    } else {
-      status.textContent = "Sẵn sàng";
-    }
-  }
-}
-
-async function performAction(): Promise<void> {
-  // Stub: Gọi backend proxy đến Gemini
-  // Không lộ API key, gọi qua endpoint backend
-  try {
-    const response = await fetch("/api/proxy-to-gemini", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        /* data */
-      }),
-    });
-    if (!response.ok) throw new Error("API failed");
-    // Xử lý kết quả
-  } catch (error) {
-    console.error("performAction error:", error);
-    throw error;
-  }
-}
-
-async function runExclusive(fn: () => Promise<void>): Promise<void> {
-  if (supportsWebLocks()) {
-    return navigator.locks.request(
-      LOCK_NAME,
-      { mode: "exclusive" },
-      async (lock) => {
-        if (lock) {
-          broadcastStatus(true);
-          updateUI(true, true);
-          try {
-            await fn();
-          } finally {
-            broadcastStatus(false);
-            updateUI(false);
-          }
-        } else {
-          updateUI(true, false);
-        }
-      },
-    );
-  } else {
-    return fallbackRunExclusive(fn);
-  }
-}
-
-async function fallbackRunExclusive(fn: () => Promise<void>): Promise<void> {
-  if (tryAcquireLock()) {
-    broadcastStatus(true);
-    updateUI(true, true);
-    startHeartbeat();
-    try {
-      await fn();
-    } finally {
-      stopHeartbeat();
-      releaseLock();
-      broadcastStatus(false);
-      updateUI(false);
-    }
-  } else {
-    updateUI(true, false);
-  }
-}
-
-function tryAcquireLock(): boolean {
-  const now = Date.now();
-  const lockData = localStorage.getItem(LOCK_KEY);
-  if (lockData) {
-    const lock = JSON.parse(lockData);
-    if (lock.owner !== tabId && lock.expiresAt > now) {
-      return false; // Lock đang sống và không phải của tab này
-    }
-  }
-  // Chiếm lock
-  localStorage.setItem(
-    LOCK_KEY,
-    JSON.stringify({ owner: tabId, expiresAt: now + LOCK_TTL }),
-  );
-  isLocked = true;
-  return true;
-}
-
-function renewLock() {
-  const now = Date.now();
-  const lockData = localStorage.getItem(LOCK_KEY);
-  if (lockData) {
-    const lock = JSON.parse(lockData);
-    if (lock.owner === tabId) {
-      localStorage.setItem(
-        LOCK_KEY,
-        JSON.stringify({ owner: tabId, expiresAt: now + LOCK_TTL }),
-      );
-    }
-  }
-}
-
-function releaseLock() {
-  const lockData = localStorage.getItem(LOCK_KEY);
-  if (lockData) {
-    const lock = JSON.parse(lockData);
-    if (lock.owner === tabId) {
-      localStorage.removeItem(LOCK_KEY);
-    }
-  }
-  isLocked = false;
-}
-
-function startHeartbeat() {
-  heartbeatTimer = window.setInterval(renewLock, HEARTBEAT_INTERVAL);
-}
-
-function stopHeartbeat() {
-  if (heartbeatTimer) {
-    clearInterval(heartbeatTimer);
-    heartbeatTimer = null;
-  }
-}
-
-function bindUI() {
-  broadcastChannel = createBroadcastChannel();
-  if (broadcastChannel) {
-    broadcastChannel.onmessage = (event) => {
-      const { type, payload } = event.data;
-      if (type === "status") {
-        updateUI(payload.busy, false);
-      }
-    };
-  }
-
-  // Lắng nghe storage event cho fallback nếu không có BroadcastChannel
-  if (!broadcastChannel) {
-    window.addEventListener("storage", (event) => {
-      if (event.key === LOCK_KEY) {
-        const lockData = event.newValue;
-        if (lockData) {
-          const lock = JSON.parse(lockData);
-          const busy = lock.owner !== tabId && lock.expiresAt > Date.now();
-          updateUI(busy, false);
-        } else {
-          updateUI(false, false);
-        }
-      }
-    });
-  }
-
-  // Giải phóng lock khi tab unload
-  window.addEventListener("beforeunload", () => {
-    if (isLocked) {
-      releaseLock();
-      broadcastStatus(false);
-    }
-  });
-
-  // Khởi tạo UI
-  updateUI(false);
-}
+// Note: BroadcastChannel and locking logic removed as it relied on a non-existent backend proxy.
 
 /**
  * Helper function to convert language certificates to CEFR levels

@@ -2,52 +2,7 @@ import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
 import type { AnalysisRunData, Candidate } from '../../types';
 import { MODEL_NAME } from '../../constants';
 
-// Sử dụng lại AI client từ geminiService
-let ai: GoogleGenerativeAI | null = null;
-let currentKeyIndex = 0;
-const apiKeys = [
-  import.meta.env.VITE_GEMINI_API_KEY_1,
-  import.meta.env.VITE_GEMINI_API_KEY_2,
-  import.meta.env.VITE_GEMINI_API_KEY_3,
-  (import.meta as any).env?.VITE_GEMINI_API_KEY_4,
-].filter(Boolean);
-
-function getAi(): GoogleGenerativeAI {
-  if (!ai) {
-    if (apiKeys.length === 0) {
-      throw new Error("No GEMINI_API_KEY environment variables set.");
-    }
-    const key = apiKeys[currentKeyIndex];
-    if (!key) {
-      throw new Error("API_KEY environment variable not set.");
-    }
-    ai = new GoogleGenerativeAI(key);
-  }
-  return ai;
-}
-
-function switchToNextKey() {
-  currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
-  ai = null;
-}
-
-async function generateContentWithFallback(modelName: string, contents: any, config: any): Promise<any> {
-  for (let attempt = 0; attempt < apiKeys.length; attempt++) {
-    try {
-      const aiInstance = getAi();
-      const model = aiInstance.getGenerativeModel({
-        model: modelName,
-        generationConfig: config
-      });
-      const result = await model.generateContent(contents);
-      return result.response;
-    } catch (error) {
-      console.warn(`API key ${currentKeyIndex + 1} failed:`, error);
-      switchToNextKey();
-    }
-  }
-  throw new Error("All API keys failed. Please check your API keys and quota.");
-}
+import { generateContentWithFallback } from './geminiService';
 
 // Schema cho câu trả lời từ AI
 const questionSetSchema = {
